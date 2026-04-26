@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --color-dark-bg: #0a0a0f;
+  --color-dark-surface: #111118;
+  --color-dark-border: #1e1e2e;
+  
+  --color-primary-start: #6366f1;
+  --color-primary-end: #8b5cf6;
+  --color-accent: #10b981;
+  --color-error: #ef4444;
+
+  --font-inter: "Inter", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-dark-bg text-slate-400 font-inter antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-white font-bold tracking-tight;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-start to-primary-end bg-clip-text text-transparent;
+  }
+  
+  .bg-gradient-primary {
+    @apply bg-gradient-to-r from-primary-start to-primary-end text-white;
+  }
+
+  .glass-card {
+    @apply bg-dark-surface/80 backdrop-blur-md border border-dark-border shadow-xl;
+  }
+  
+  .interactive-card {
+    @apply bg-dark-surface/80 backdrop-blur-md border border-dark-border shadow-xl transition-all duration-150 ease-in-out hover:border-primary-start/50 hover:shadow-[0_0_15px_rgba(99,102,241,0.1)];
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary-start to-primary-end text-white rounded-xl px-6 py-3 font-semibold shadow-lg hover:shadow-primary-start/25 hover:-translate-y-0.5 transition-all duration-150 active:translate-y-0 disabled:opacity-50 disabled:hover:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply rounded-xl px-6 py-3 font-semibold border border-dark-border bg-dark-surface text-white hover:border-primary-start/50 hover:bg-dark-border/50 transition-all duration-150 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:hover:translate-y-0;
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

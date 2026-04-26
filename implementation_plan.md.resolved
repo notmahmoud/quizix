@@ -1,0 +1,60 @@
+# Quizix App Updates Implementation Plan
+
+## Goal Description
+1. Fix the "Total Students" counter on the host dashboard so it correctly reflects the number of students who joined.
+2. Add an "End Session" button in the Host Lobby, allowing the host to end an active/waiting session. This will properly update the room's status to 'finished' and sync the final student count and status to the host's dashboard.
+3. Add a "Make this quiz public on Explore after session ends" toggle when creating a quiz (defaults to OFF).
+4. Update the Explore page to display only finished, public rooms, allowing any user to join and take a "Solo Attempt".
+5. Implement the Solo Attempt flow: skip the lobby, go straight to questions, and save results to `users/{uid}/soloAttempts/{roomCode}`.
+6. Add a README.md file documenting these changes and the application features.
+
+## User Review Required
+> [!IMPORTANT]
+> The database structure for solo attempts will be `users/{uid}/soloAttempts/{roomCode}` as requested.
+> For "Total Students", I plan to sync the student count back to the host's dashboard whenever the host is in the lobby or when they explicitly click "End Session". This is the most efficient approach for Realtime Database without backend triggers.
+
+## Open Questions
+None. The requirements are clear.
+
+## Proposed Changes
+
+### Database and Data Model
+
+#### [MODIFY] src/lib/db.js
+- **`getPublicRooms`**: Change the filter to return rooms where `room.status === 'finished'` AND `room.settings?.isPublic === true`.
+- **`submitSoloAnswers`** (new function): Add a function to submit answers for solo attempts. It will save the user's score to `users/{uid}/soloAttempts/{roomCode}`.
+- **`endRoomSession`** (new function): Add a helper to update the room status to 'finished' and sync the final state (status, student count) back to the host's `hostedRooms` profile.
+- **`updateHostedRoomStudentCount`** (new function): Add a helper to sync the live student count to the host's `hostedRooms` node so the dashboard updates dynamically.
+
+### Host and Dashboard Experience
+
+#### [MODIFY] src/pages/HostLobby.jsx
+- Add an "End Session" button next to "View Full Report" (or where "Start Quiz" was) when the room is active or waiting.
+- Add an effect to keep the `hostedRooms` student count in sync whenever new students join the lobby.
+- Update the "End Session" action to call `endRoomSession` and then update local state.
+
+### Quiz Creation
+
+#### [MODIFY] src/pages/CreateQuiz.jsx
+- Add a new toggle: "Make this quiz public on Explore after session ends" (default OFF) under a "Room Settings" section.
+- Pass this toggle value into the `settings: { isPublic }` object when calling `createRoom`.
+
+### Explore & Solo Attempt Flow
+
+#### [MODIFY] src/pages/Explore.jsx
+- Ensure `getPublicRooms` is used to load finished public rooms.
+- Update the "Join Quiz" link on the room cards to point to `/room/${room.id}/quiz?solo=true` to distinguish from live join.
+
+#### [MODIFY] src/pages/QuizSession.jsx
+- Read the `solo=true` query parameter or check if the room status is `finished` and the user is entering from Explore.
+- If it is a solo attempt, bypass the "Waiting for host to start" screen and go straight to the first question.
+- On completion, call `submitSoloAnswers` instead of `submitAnswers` (or modify `submitAnswers` to handle `isSolo`). 
+- Provide an updated result screen or redirect them to a specific solo result view.
+
+#### [NEW] src/pages/SoloResults.jsx (Optional or modify Results.jsx)
+- Modify the existing `Results.jsx` to render correctly for solo attempts without expecting host-level analytics. I will update `Results.jsx` to gracefully handle `soloAttempts` data.
+
+### Documentation
+
+#### [NEW] README.md
+- Completely rewrite `README.md` to explain the platform, the difference between private/public rooms, the solo attempt flow, and the technical architecture (Firebase RTDB).
