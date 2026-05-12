@@ -1,11 +1,25 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Sparkles, User, LogOut, LayoutDashboard, ChevronDown } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 export default function Navbar() {
   const { currentUser, logout } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const scrollToSection = (id) => (e) => {
+    e.preventDefault();
+    if (location.pathname === '/') {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      }, 300);
+    }
+  };
 
   return (
     <nav className="border-b border-dark-border bg-dark-bg/80 backdrop-blur-lg sticky top-0 z-50">
@@ -22,8 +36,8 @@ export default function Navbar() {
           {/* Center Links (Hidden on mobile) */}
           <div className="hidden md:flex items-center space-x-8">
             <Link to="/explore" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Explore</Link>
-            <a href="#about" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">About</a>
-            <a href="#vision" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Vision</a>
+            <a href="#vision" onClick={scrollToSection('vision')} className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Mission</a>
+            <a href="#about" onClick={scrollToSection('about')} className="text-sm font-medium text-slate-300 hover:text-white transition-colors">About</a>
           </div>
 
           {/* Auth Actions */}
