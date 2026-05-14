@@ -32,7 +32,7 @@ export default function useCreateQuiz() {
       options: ['', '', '', ''],
       correct: 0,
       tag: '',
-      points: 10
+      points: 1
     }
   ]);
 
@@ -53,7 +53,7 @@ export default function useCreateQuiz() {
         options: ['', '', '', ''],
         correct: 0,
         tag: '',
-        points: 10
+        points: 1
       }
     ]);
   };

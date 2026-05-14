@@ -14,7 +14,7 @@ const fadeUp = {
 
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden pt-20 pb-32">
+    <section className="relative overflow-hidden pt-20 pb-32 -mt-[35px]">
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-start/20 rounded-full blur-[120px] -z-10" />
       <div className="absolute bottom-0 right-1/4 w-[30rem] h-[30rem] bg-accent/10 rounded-full blur-[120px] -z-10" />
       

@@ -89,7 +89,7 @@ export default function Navbar() {
               </div>
             ) : (
               <>
-                <Link to="/login" className="text-sm font-medium text-slate-300 hover:text-white transition-colors hidden sm:block">Log in</Link>
+                <Link to="/login" className="btn-secondary py-2 px-4 text-sm">Log in</Link>
                 <Link to="/signup" className="btn-primary py-2 px-4 text-sm">Sign up</Link>
               </>
             )}

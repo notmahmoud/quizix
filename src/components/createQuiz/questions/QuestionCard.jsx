@@ -15,10 +15,18 @@ export default function QuestionCard({ q, qIndex, updateQuestion, updateOption, 
         <span className="text-xs font-bold text-primary-start uppercase tracking-wider mb-2 block">Question {qIndex + 1}</span>
         <textarea 
           value={q.text}
-          onChange={(e) => updateQuestion(q.id, 'text', e.target.value)}
-          className="w-full sm:w-3/4 px-0 py-2 bg-transparent border-0 border-b border-dark-border focus:border-primary-start focus:ring-0 outline-none transition-all text-white text-lg font-medium resize-none placeholder-slate-600"
+          onChange={(e) => {
+            updateQuestion(q.id, 'text', e.target.value);
+            e.target.style.height = 'auto';
+            e.target.style.height = e.target.scrollHeight + 'px';
+          }}
+          onFocus={(e) => {
+            e.target.style.height = 'auto';
+            e.target.style.height = e.target.scrollHeight + 'px';
+          }}
+          className="w-full sm:w-3/4 px-0 py-2 bg-transparent border-0 border-b border-dark-border focus:border-primary-start focus:ring-0 outline-none transition-all text-white text-lg font-medium resize-none overflow-hidden placeholder-slate-600"
           placeholder="Type your question here..."
-          rows={2}
+          rows={4}
         />
       </div>
 
