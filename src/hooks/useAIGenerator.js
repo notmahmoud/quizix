@@ -23,7 +23,7 @@ export default function useAIGenerator(setQuestions) {
     const apiKey = import.meta.env.VITE_GROQ_API_KEY;
 
     const typeInstruction =
-      aiType === 'True or False'
+      aiType === 'True/False' || aiType === 'TF' || aiType === 'True or False'
         ? 'All questions must be True or False type.'
         : aiType === 'Mixed'
         ? 'Mix MCQ and True or False questions.'
@@ -32,8 +32,8 @@ export default function useAIGenerator(setQuestions) {
     const prompt = `Generate ${aiCount} ${aiDifficulty} quiz questions about "${aiTopic}". ${typeInstruction}
 Return ONLY a valid JSON array with no explanation. Each object must have:
 - "text": the question string
-- "type": "MCQ" or "True or False"
-- "options": array of strings (4 for MCQ, ["True","False"] for T/F)
+- "type": "MCQ" or "TF"
+- "options": array of strings (4 for MCQ, ["True","False"] for TF)
 - "correct": index of the correct option (0-based)
 - "tag": a short topic tag
 - "points": 10`;
@@ -73,7 +73,7 @@ Return ONLY a valid JSON array with no explanation. Each object must have:
         // Auto-fix if AI returned an MCQ but with True/False options or fewer than 3 options
         if (type === 'MCQ') {
           if (options.length < 3 || (options.length === 2 && options.includes('True'))) {
-            type = 'True or False';
+            type = 'TF';
           } else {
             // pad or trim options to exactly 4
             while (options.length < 4) options.push('');
@@ -81,7 +81,8 @@ Return ONLY a valid JSON array with no explanation. Each object must have:
           }
         }
 
-        if (type === 'True or False') {
+        if (type === 'True or False' || type === 'TF') {
+          type = 'TF';
           options = ['True', 'False'];
           if (q.correct > 1) q.correct = 0;
         }
