@@ -1,5 +1,5 @@
 import { db } from './firebase';
-import { ref, set, get, update, remove, onValue, child, query, orderByChild, equalTo } from 'firebase/database';
+import { ref, set, get, update, onValue } from 'firebase/database';
 
 /**
  * Creates a new room in the Realtime Database and adds a summary to the host's profile

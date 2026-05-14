@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { subscribeToRoom, submitAnswers, submitSoloAnswers } from '../lib/db';
@@ -39,46 +39,7 @@ export default function useQuizSession() {
     return () => unsub();
   }, [code, timerInitialized]);
 
-  // Global countdown
-  useEffect(() => {
-    if (globalTimeLeft === null || isSubmitting || !timerInitialized) return;
-    const isActive = isSolo || roomData?.status === 'active';
-    if (!isActive) return;
-
-    if (globalTimeLeft === 0) {
-      handleAutoSubmit();
-      return;
-    }
-    if (globalTimeLeft === 5) setShowWarningToast(true);
-
-    const t = setTimeout(() => setGlobalTimeLeft(s => s - 1), 1000);
-    return () => clearTimeout(t);
-  }, [globalTimeLeft, isSubmitting, timerInitialized, roomData?.status, isSolo]);
-
-  // Save answer to Firebase in real-time
-  const handleSelectAnswer = (questionId, value) => {
-    const newAnswers = { ...answers, [questionId]: value };
-    setAnswers(newAnswers);
-    // Real-time Firebase save
-    update(ref(db, `rooms/${code}/students/${uid}/answers`), { [questionId]: value }).catch(console.error);
-  };
-
-  const scrollToQuestion = (index) => {
-    setActiveIndex(index);
-    questionRefs.current[index]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-
-  const handleSubmitRequest = () => {
-    const questions = roomData?.questions || [];
-    const answeredCount = Object.keys(answers).length;
-    if (answeredCount < questions.length) {
-      setShowConfirmModal(true);
-    } else {
-      handleAutoSubmit();
-    }
-  };
-
-  const handleAutoSubmit = async () => {
+  const handleAutoSubmit = useCallback(async () => {
     if (isSubmitting) return;
     setIsSubmitting(true);
     setShowWarningToast(false);
@@ -107,7 +68,7 @@ export default function useQuizSession() {
     });
 
     try {
-      const roomSummary = { title: roomData.title || 'Untitled', hostName: roomData.hostName || 'Unknown' };
+      const roomSummary = { title: roomData?.title || 'Untitled', hostName: roomData?.hostName || 'Unknown' };
       if (isSolo) {
         await submitSoloAnswers(code, uid, answers, finalScore, breakdown);
       } else {
@@ -118,7 +79,51 @@ export default function useQuizSession() {
       console.error('Submit failed:', err);
       setIsSubmitting(false);
     }
+  }, [isSubmitting, roomData, answers, isSolo, code, uid, navigate]);
+
+  // Global countdown
+  useEffect(() => {
+    if (globalTimeLeft === null || isSubmitting || !timerInitialized) return;
+    const isActive = isSolo || roomData?.status === 'active';
+    if (!isActive) return;
+
+    if (globalTimeLeft === 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      handleAutoSubmit();
+      return;
+    }
+    if (globalTimeLeft === 5) {
+      setTimeout(() => setShowWarningToast(true), 0);
+    }
+
+    const t = setTimeout(() => setGlobalTimeLeft(s => s - 1), 1000);
+    return () => clearTimeout(t);
+  }, [globalTimeLeft, isSubmitting, timerInitialized, roomData?.status, isSolo, handleAutoSubmit]);
+
+  // Save answer to Firebase in real-time
+  const handleSelectAnswer = (questionId, value) => {
+    const newAnswers = { ...answers, [questionId]: value };
+    setAnswers(newAnswers);
+    // Real-time Firebase save
+    update(ref(db, `rooms/${code}/students/${uid}/answers`), { [questionId]: value }).catch(console.error);
   };
+
+  const scrollToQuestion = (index) => {
+    setActiveIndex(index);
+    questionRefs.current[index]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const handleSubmitRequest = () => {
+    const questions = roomData?.questions || [];
+    const answeredCount = Object.keys(answers).length;
+    if (answeredCount < questions.length) {
+      setShowConfirmModal(true);
+    } else {
+      handleAutoSubmit();
+    }
+  };
+
+
 
   const answeredCount = Object.keys(answers).length;
   const totalQuestions = roomData?.questions?.length || 0;

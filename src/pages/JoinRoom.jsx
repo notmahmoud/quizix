@@ -98,9 +98,14 @@ export default function JoinRoom() {
 
               <button
                 type="submit"
-                className="w-full btn-primary flex items-center justify-center gap-2 py-4 text-lg"
+                disabled={isJoining}
+                className={`w-full btn-primary flex items-center justify-center gap-2 py-4 text-lg ${isJoining ? 'opacity-70 cursor-not-allowed' : ''}`}
               >
-                Join Quiz <ArrowRight className="w-5 h-5" />
+                {isJoining ? (
+                  <>Joining <Loader2 className="w-5 h-5 animate-spin" /></>
+                ) : (
+                  <>Join Quiz <ArrowRight className="w-5 h-5" /></>
+                )}
               </button>
             </form>
           </div>

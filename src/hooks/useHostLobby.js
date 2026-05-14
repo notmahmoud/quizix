@@ -28,7 +28,7 @@ export default function useHostLobby() {
       }
     });
     return () => unsubscribe();
-  }, [code]);
+  }, [code, currentUser]);
 
   const handleCopyCode = () => {
     navigator.clipboard.writeText(code);

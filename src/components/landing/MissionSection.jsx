@@ -79,17 +79,17 @@ export default function MissionSection() {
           variants={stagger}
           className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
-          {pillars.map(({ icon: Icon, title, desc }) => (
+          {pillars.map((item) => (
             <motion.div
-              key={title}
+              key={item.title}
               variants={fadeUp}
               className="interactive-card p-6 rounded-2xl border border-dark-border group hover:border-accent/40 transition-colors duration-300"
             >
               <div className="w-11 h-11 rounded-xl bg-gradient-primary flex items-center justify-center mb-5 group-hover:shadow-[0_0_20px_rgba(99,102,241,0.4)] transition-shadow">
-                <Icon className="w-5 h-5 text-white" />
+                <item.icon className="w-5 h-5 text-white" />
               </div>
-              <h3 className="text-white font-semibold text-base mb-2">{title}</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">{desc}</p>
+              <h3 className="text-white font-semibold text-base mb-2">{item.title}</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
             </motion.div>
           ))}
         </motion.div>

@@ -104,17 +104,17 @@ export default function AboutSection() {
             variants={stagger}
             className="grid grid-cols-1 sm:grid-cols-2 gap-5"
           >
-            {highlights.map(({ icon: Icon, label, desc }) => (
+            {highlights.map((item) => (
               <motion.div
-                key={label}
+                key={item.label}
                 variants={fadeUp}
                 className="interactive-card p-5 rounded-2xl border border-dark-border group hover:border-accent/40 transition-colors duration-300"
               >
                 <div className="w-10 h-10 rounded-xl bg-dark-bg border border-dark-border flex items-center justify-center mb-4 group-hover:border-accent/40 group-hover:bg-accent/10 transition-colors duration-300">
-                  <Icon className="w-5 h-5 text-accent" />
+                  <item.icon className="w-5 h-5 text-accent" />
                 </div>
-                <h3 className="text-white font-semibold text-sm mb-1">{label}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{desc}</p>
+                <h3 className="text-white font-semibold text-sm mb-1">{item.label}</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
           </motion.div>

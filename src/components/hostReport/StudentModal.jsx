@@ -11,6 +11,7 @@ export default function StudentModal({ student, roomCode, onClose }) {
 
   useEffect(() => {
     if (!student) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
     setStudentData(null);
     setQuestions([]);
@@ -30,7 +31,7 @@ export default function StudentModal({ student, roomCode, onClose }) {
       }
     };
     fetchData();
-  }, [student?.id, roomCode]);
+  }, [student, roomCode]);
 
   let totalPoints = 0, earnedPoints = 0;
   const tagStats = {};
