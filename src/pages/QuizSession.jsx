@@ -1,13 +1,18 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import useQuizSession from '../hooks/useQuizSession';
 import SessionTopBar from '../components/quizSession/SessionTopBar';
 import QuestionNavigator from '../components/quizSession/QuestionNavigator';
 import QuestionCard from '../components/quizSession/QuestionCard';
 import SubmitConfirmModal from '../components/quizSession/SubmitConfirmModal';
+import ExitConfirmModal from '../components/quizSession/ExitConfirmModal';
 import TimeWarningToast from '../components/quizSession/TimeWarningToast';
 import WaitingScreen from '../components/quizSession/WaitingScreen';
 
 export default function QuizSession() {
+  const [showExitModal, setShowExitModal] = useState(false);
+  const navigate = useNavigate();
   const session = useQuizSession();
   const {
     roomData, isSolo, answers, answeredCount, totalQuestions,
@@ -45,6 +50,7 @@ export default function QuizSession() {
         totalQuestions={totalQuestions}
         onSubmit={handleSubmitRequest}
         isSubmitting={isSubmitting}
+        onExit={() => setShowExitModal(true)}
       />
 
       {/* Mobile navigator strip */}
@@ -102,6 +108,12 @@ export default function QuizSession() {
         unansweredCount={showConfirmModal ? totalQuestions - answeredCount : null}
         onConfirm={handleAutoSubmit}
         onCancel={() => setShowConfirmModal(false)}
+      />
+
+      <ExitConfirmModal 
+        show={showExitModal}
+        onConfirm={() => navigate(-1)}
+        onCancel={() => setShowExitModal(false)}
       />
 
       <TimeWarningToast show={showWarningToast} />
