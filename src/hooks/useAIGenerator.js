@@ -24,10 +24,10 @@ export default function useAIGenerator(setQuestions) {
 
     const typeInstruction =
       aiType === 'True/False' || aiType === 'TF' || aiType === 'True or False'
-        ? 'All questions must be True or False type.'
+        ? 'All questions must be True or False type. Use "type": "TF".'
         : aiType === 'Mixed'
         ? 'Mix MCQ and True or False questions.'
-        : 'All questions must be MCQ. You MUST provide exactly 4 options for each MCQ.';
+        : 'All questions must be strictly Multiple Choice (MCQ). You MUST provide exactly 4 options for each question. Do NOT generate True or False questions. Use "type": "MCQ".';
 
     const prompt = `Generate ${aiCount} ${aiDifficulty} quiz questions about "${aiTopic}". ${typeInstruction}
 Return ONLY a valid JSON array with no explanation. Each object must have:
@@ -36,7 +36,7 @@ Return ONLY a valid JSON array with no explanation. Each object must have:
 - "options": array of strings (4 for MCQ, ["True","False"] for TF)
 - "correct": index of the correct option (0-based)
 - "tag": a short topic tag
-- "points": 10`;
+- "points": 1`;
 
     try {
       const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
@@ -68,15 +68,22 @@ Return ONLY a valid JSON array with no explanation. Each object must have:
 
       const newQuestions = parsed.map((q, i) => {
         let type = q.type || 'MCQ';
-        let options = q.options || [];
+        let options = Array.isArray(q.options) ? q.options : [];
+
+        // Enforce user selection
+        if (aiType === 'MCQ') {
+          type = 'MCQ';
+        } else if (aiType === 'True or False' || aiType === 'TF' || aiType === 'True/False') {
+          type = 'TF';
+        }
 
         // Auto-fix if AI returned an MCQ but with True/False options or fewer than 3 options
         if (type === 'MCQ') {
-          if (options.length < 3 || (options.length === 2 && options.includes('True'))) {
+          if (aiType === 'Mixed' && (options.length < 3 || (options.length === 2 && options.includes('True')))) {
             type = 'TF';
           } else {
             // pad or trim options to exactly 4
-            while (options.length < 4) options.push('');
+            while (options.length < 4) options.push(`Option ${options.length + 1}`);
             options = options.slice(0, 4);
           }
         }
@@ -84,7 +91,7 @@ Return ONLY a valid JSON array with no explanation. Each object must have:
         if (type === 'True or False' || type === 'TF') {
           type = 'TF';
           options = ['True', 'False'];
-          if (q.correct > 1) q.correct = 0;
+          if (q.correct > 1 || q.correct == null) q.correct = 0;
         }
 
         return {
