@@ -105,7 +105,14 @@ export default function useQuizSession() {
     const newAnswers = { ...answers, [questionId]: value };
     setAnswers(newAnswers);
     // Real-time Firebase save
-    update(ref(db, `rooms/${code}/students/${uid}/answers`), { [questionId]: value }).catch(console.error);
+    if (!isSolo) {
+      update(ref(db, `rooms/${code}/students/${uid}`), { 
+        [`answers/${questionId}`]: value,
+        status: 'answering'
+      }).catch(console.error);
+    } else {
+      update(ref(db, `rooms/${code}/students/${uid}/answers`), { [questionId]: value }).catch(console.error);
+    }
   };
 
   const scrollToQuestion = (index) => {
