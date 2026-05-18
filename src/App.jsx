@@ -14,7 +14,9 @@ import Results from './pages/Results';
 import HostReport from './pages/HostReport';
 import Explore from './pages/Explore';
 
-// Protected Route Component
+// ProtectedRoute — wraps any route that requires authentication.
+// If the user is not logged in, they are redirected to /login instead of seeing the page.
+// Used for routes like /dashboard, /create, and /room/:code/host.
 const ProtectedRoute = ({ children }) => {
   const { currentUser } = useAuth();
   
@@ -50,6 +52,8 @@ function AppRoutes() {
 
 function App() {
   return (
+    // AuthProvider must wrap Router so that useAuth() is accessible inside route components.
+    // Router provides the routing context that useNavigate/useParams depend on.
     <AuthProvider>
       <Router>
         <div className="min-h-screen flex flex-col">
