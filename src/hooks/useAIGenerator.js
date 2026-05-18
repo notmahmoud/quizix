@@ -26,8 +26,8 @@ export default function useAIGenerator(setQuestions) {
       aiType === 'True/False' || aiType === 'TF' || aiType === 'True or False'
         ? 'All questions must be True or False type. Use "type": "TF".'
         : aiType === 'Mixed'
-        ? 'Mix MCQ and True or False questions.'
-        : 'All questions must be strictly Multiple Choice (MCQ). You MUST provide exactly 4 options for each question. Do NOT generate True or False questions. Use "type": "MCQ".';
+          ? 'Mix MCQ and True or False questions.'
+          : 'All questions must be strictly Multiple Choice (MCQ). You MUST provide exactly 4 options for each question. Do NOT generate True or False questions. Use "type": "MCQ".';
 
     const prompt = `Generate ${aiCount} ${aiDifficulty} quiz questions about "${aiTopic}". ${typeInstruction}
 Return ONLY a valid JSON array with no explanation. Each object must have:

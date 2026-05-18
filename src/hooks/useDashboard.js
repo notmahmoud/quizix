@@ -31,13 +31,15 @@ export default function useDashboard() {
     fetchData();
   }, [currentUser]);
 
-  const totalHosted = hostedRooms.length;
+  const totalHosted = hostedRooms.length; //calculate the total number of hosted rooms
+  //calculate the total number of students from hosted rooms
   const totalStudents = hostedRooms.reduce((acc, room) => acc + (room.students || 0), 0);
+  //filter the joined rooms to get only the rooms with scores
   const roomsWithScores = joinedRooms.filter(r => r.score !== undefined && r.score !== null);
-  const averageScore = roomsWithScores.length > 0 
-    ? Math.round(roomsWithScores.reduce((acc, r) => acc + r.score, 0) / roomsWithScores.length) 
-    : 0;
-  const activeRooms = hostedRooms.filter(r => r.status === 'waiting' || r.status === 'active');
+  const averageScore = roomsWithScores.length > 0
+    ? Math.round(roomsWithScores.reduce((acc, r) => acc + r.score, 0) / roomsWithScores.length)
+    : 0;//calculate the average score of the joined rooms
+  const activeRooms = hostedRooms.filter(r => r.status === 'waiting' || r.status === 'active');//filter the hosted rooms to get only the active rooms
   const pastRooms = hostedRooms.filter(r => r.status === 'finished');
   const displayName = currentUser?.displayName || currentUser?.email?.split('@')[0] || 'User';
 
