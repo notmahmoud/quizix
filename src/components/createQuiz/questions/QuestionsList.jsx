@@ -19,7 +19,7 @@ export default function QuestionsList({ questions, addQuestion, updateQuestion, 
 
       <button 
         onClick={addQuestion}
-        className="w-full py-4 border-2 border-dashed border-dark-border rounded-xl text-slate-400 font-medium hover:border-primary-start hover:text-primary-start transition-colors flex items-center justify-center gap-2"
+        className="w-full py-4 border-2 border-dashed border-gray-200 rounded-xl text-muted font-medium hover:border-teal hover:text-teal transition-colors flex items-center justify-center gap-2 bg-white"
       >
         <Plus className="w-5 h-5" /> Add Question
       </button>

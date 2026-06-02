@@ -5,68 +5,88 @@ export default function QuestionCard({ question, questionIndex, answer, onAnswer
     <div
       id={`question-${questionIndex}`}
       ref={cardRef}
-      className={`interactive-card p-6 rounded-2xl border transition-all duration-200 scroll-mt-24
-        ${isAnswered ? 'border-accent/30' : 'border-dark-border'}
-      `}
+      className="card scroll-mt-24 transition-all duration-200"
+      style={{
+        padding: '20px',
+        borderColor: isAnswered ? '#0D9488' : '#E5E7EB',
+        background: '#FFFFFF',
+      }}
     >
-      {/* Question Header */}
+      {/* Header */}
       <div className="flex items-start justify-between gap-4 mb-5">
         <div className="flex items-center gap-3">
-          <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0
-            ${isAnswered ? 'bg-accent/20 text-accent' : 'bg-dark-bg text-slate-400'}`}
+          <span
+            style={{
+              width: 30, height: 30, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: '0.8125rem', fontWeight: 500, flexShrink: 0,
+              background: isAnswered ? '#E6FAF8' : '#FAF9F7',
+              color: isAnswered ? '#0D9488' : '#4B5563',
+              border: isAnswered ? '1px solid #0D9488' : '1px solid #E5E7EB',
+            }}
           >
             {questionIndex + 1}
           </span>
-          <h3 className="text-white font-semibold leading-snug">{question.text}</h3>
+          <h3 style={{ color: '#111827', fontWeight: 500, lineHeight: 1.5, fontSize: '1rem' }}>{question.text}</h3>
         </div>
         {question.tag && (
-          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-dark-bg border border-dark-border text-slate-400 whitespace-nowrap shrink-0">
+          <span className="badge-ended shrink-0" style={{ whiteSpace: 'nowrap', padding: '2px 6px', fontSize: '10px' }}>
             {question.tag}
           </span>
         )}
       </div>
 
-      {/* MCQ Options */}
+      {/* MCQ */}
       {question.type === 'MCQ' && (
-        <div className="space-y-3">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {(question.options || []).map((opt, idx) => {
             const isSelected = answer === idx;
             return (
               <button
                 key={idx}
                 onClick={() => onAnswer(question.id, idx)}
-                className={`w-full text-left p-4 rounded-xl border-2 transition-all duration-150 flex items-center gap-3 group
-                  ${isSelected
-                    ? 'border-primary-start bg-primary-start/10 shadow-[0_0_16px_rgba(99,102,241,0.12)]'
-                    : 'border-dark-border bg-dark-surface hover:border-slate-500'
-                  }`}
+                style={{
+                  width: '100%', textAlign: 'left', padding: '12px 16px', borderRadius: 8,
+                  border: isSelected ? '1px solid #0D9488' : '1px solid #E5E7EB',
+                  background: isSelected ? '#E6FAF8' : '#FFFFFF',
+                  display: 'flex', alignItems: 'center', gap: 12,
+                  cursor: 'pointer', transition: 'all 150ms ease',
+                }}
+                onMouseEnter={e => { if (!isSelected) e.currentTarget.style.borderColor = '#0D9488'; }}
+                onMouseLeave={e => { if (!isSelected) e.currentTarget.style.borderColor = '#E5E7EB'; }}
               >
-                <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-sm font-bold shrink-0
-                  ${isSelected ? 'bg-primary-start text-white' : 'bg-dark-bg text-slate-400 group-hover:bg-slate-700'}`}
-                >
+                <div style={{
+                  width: 28, height: 28, borderRadius: 6, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  background: isSelected ? '#0D9488' : '#FAF9F7',
+                  color: isSelected ? '#FFFFFF' : '#4B5563',
+                  fontSize: '0.8125rem', fontWeight: 500,
+                }}>
                   {String.fromCharCode(65 + idx)}
                 </div>
-                <span className={`font-medium ${isSelected ? 'text-white' : 'text-slate-300'}`}>{opt}</span>
+                <span style={{ color: isSelected ? '#0D9488' : '#111827', fontWeight: isSelected ? 500 : 400, fontSize: '0.9375rem' }}>
+                  {opt}
+                </span>
               </button>
             );
           })}
         </div>
       )}
 
-      {/* True / False */}
+      {/* True/False */}
       {question.type === 'TF' && (
-        <div className="flex gap-4">
+        <div style={{ display: 'flex', gap: 12 }}>
           {['True', 'False'].map((opt, idx) => {
             const isSelected = answer === idx;
             return (
               <button
                 key={idx}
                 onClick={() => onAnswer(question.id, idx)}
-                className={`flex-1 py-4 rounded-xl border-2 font-bold text-lg transition-all duration-150
-                  ${isSelected
-                    ? 'border-primary-start bg-primary-start/10 text-white shadow-[0_0_16px_rgba(99,102,241,0.12)]'
-                    : 'border-dark-border bg-dark-surface text-slate-400 hover:border-slate-500 hover:text-slate-200'
-                  }`}
+                style={{
+                  flex: 1, padding: '14px', borderRadius: 8, fontWeight: 500, fontSize: '1rem',
+                  border: isSelected ? '1px solid #0D9488' : '1px solid #E5E7EB',
+                  background: isSelected ? '#E6FAF8' : '#FFFFFF',
+                  color: isSelected ? '#0D9488' : '#4B5563',
+                  cursor: 'pointer', transition: 'all 150ms ease',
+                }}
               >
                 {opt}
               </button>
@@ -82,7 +102,8 @@ export default function QuestionCard({ question, questionIndex, answer, onAnswer
           value={answer ?? ''}
           onChange={e => onAnswer(question.id, e.target.value)}
           placeholder="Type your answer here..."
-          className="w-full bg-dark-bg border border-dark-border rounded-xl p-4 text-slate-300 placeholder-slate-600 focus:outline-none focus:border-primary-start/50 resize-none transition-colors"
+          className="form-input"
+          style={{ resize: 'none' }}
         />
       )}
     </div>

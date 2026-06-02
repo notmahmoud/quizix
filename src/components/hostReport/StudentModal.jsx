@@ -11,7 +11,6 @@ export default function StudentModal({ student, roomCode, onClose }) {
 
   useEffect(() => {
     if (!student) return;
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
     setStudentData(null);
     setQuestions([]);
@@ -77,23 +76,23 @@ export default function StudentModal({ student, roomCode, onClose }) {
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
           className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
         >
-          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
+          <div className="absolute inset-0 bg-black/40" onClick={onClose} />
           <motion.div
             initial={{ y: 40, opacity: 0, scale: 0.96 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: 20, opacity: 0, scale: 0.96 }}
             transition={{ type: 'spring', stiffness: 300, damping: 28 }}
-            className="relative w-full max-w-3xl max-h-[90vh] bg-dark-bg border border-dark-border rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            className="relative w-full max-w-3xl max-h-[90vh] bg-white border border-gray-200 rounded-2xl shadow-xl flex flex-col overflow-hidden"
           >
             {/* HEADER */}
-            <div className="p-5 border-b border-dark-border flex items-center justify-between bg-dark-surface shrink-0 gap-4">
+            <div className="p-5 border-b border-gray-200 flex items-center justify-between bg-white shrink-0 gap-4">
               <div className="flex items-center gap-4 min-w-0">
-                <div className="w-12 h-12 rounded-full bg-primary-start/20 border border-primary-start/30 flex items-center justify-center text-primary-start text-lg font-bold uppercase shrink-0">
+                <div className="w-12 h-12 rounded-full bg-teal-light border border-teal/20 flex items-center justify-center text-teal text-lg font-medium uppercase shrink-0">
                   {student.name ? student.name.charAt(0) : '?'}
                 </div>
                 <div className="min-w-0">
-                  <h2 className="text-lg font-bold text-white truncate">{student.name}</h2>
-                  <span className={`text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${student.status === 'finished' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20'}`}>
+                  <h2 className="text-lg font-medium text-gray-900 truncate">{student.name}</h2>
+                  <span className={`inline-flex px-2 py-0.5 rounded text-[10px] font-medium uppercase tracking-wider border ${student.status === 'finished' ? 'bg-teal-light text-teal border-teal/20' : 'bg-amber-50 text-amber-600 border-amber-200'}`}>
                     {student.status}
                   </span>
                 </div>
@@ -103,25 +102,25 @@ export default function StudentModal({ student, roomCode, onClose }) {
                 {!loading && studentData && (
                   <div className="hidden sm:flex items-center gap-3">
                     <div className="text-right">
-                      <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">Score</div>
-                      <div className="text-base font-bold text-white">{earnedPoints} <span className="text-slate-500 text-sm">/ {totalPoints}</span></div>
+                      <div className="text-[10px] font-medium text-muted uppercase tracking-wider">Score</div>
+                      <div className="text-base font-medium text-gray-900">{earnedPoints} <span className="text-muted text-sm">/ {totalPoints}</span></div>
                     </div>
                     <div className="relative w-16 h-16">
                       <svg className="w-16 h-16 -rotate-90">
-                        <circle cx="32" cy="32" r={radius} className="stroke-dark-border" strokeWidth="5" fill="none" />
+                        <circle cx="32" cy="32" r={radius} className="stroke-gray-100" strokeWidth="5" fill="none" />
                         <circle cx="32" cy="32" r={radius}
-                          className={percentScore >= 60 ? 'stroke-emerald-500' : 'stroke-error'}
+                          className={percentScore >= 60 ? 'stroke-teal' : 'stroke-red-500'}
                           strokeWidth="5" fill="none" strokeLinecap="round"
                           style={{ strokeDasharray: circumference, strokeDashoffset }}
                         />
                       </svg>
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-xs font-bold text-white">{percentScore}%</span>
+                        <span className="text-xs font-semibold text-gray-900">{percentScore}%</span>
                       </div>
                     </div>
                   </div>
                 )}
-                <button onClick={onClose} className="p-2 rounded-lg border border-dark-border text-slate-400 hover:bg-dark-border hover:text-white transition-colors">
+                <button onClick={onClose} className="p-2 rounded-lg border border-gray-200 text-muted hover:bg-bg hover:text-gray-900 transition-colors cursor-pointer">
                   <X className="w-5 h-5" />
                 </button>
               </div>
@@ -129,30 +128,30 @@ export default function StudentModal({ student, roomCode, onClose }) {
 
             {/* BODY */}
             {loading ? (
-              <div className="flex-1 flex items-center justify-center p-10">
-                <Loader2 className="w-8 h-8 text-primary-start animate-spin" />
+              <div className="flex-1 flex items-center justify-center p-10 bg-white">
+                <Loader2 className="w-8 h-8 text-teal animate-spin" />
               </div>
             ) : (
-              <div className="p-6 overflow-y-auto flex-1 space-y-10 custom-scrollbar">
+              <div className="p-6 overflow-y-auto flex-1 space-y-10 bg-white">
 
                 {/* TOPIC BREAKDOWN */}
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-4">Topic Performance</h3>
+                  <h3 className="text-[10px] font-medium uppercase tracking-wider text-muted mb-4">Topic Performance</h3>
                   {Object.keys(tagStats).length === 0 ? (
-                    <p className="text-slate-500 text-sm">No topic data available.</p>
+                    <p className="text-muted text-sm">No topic data available.</p>
                   ) : (
                     <div className="grid gap-3">
                       {Object.entries(tagStats).map(([topic, stats]) => {
                         const pct = stats.total > 0 ? Math.round((stats.earned / stats.total) * 100) : 0;
                         const isWeak = pct < 50;
                         return (
-                          <div key={topic} className={`p-4 rounded-xl border ${isWeak ? 'bg-error/5 border-error/20' : 'bg-dark-surface border-dark-border'}`}>
+                          <div key={topic} className={`p-4 rounded-xl border ${isWeak ? 'bg-red-50/50 border-red-200' : 'bg-bg/40 border-gray-200'}`}>
                             <div className="flex justify-between items-center mb-2">
-                              <span className={`font-semibold text-sm ${isWeak ? 'text-error' : 'text-slate-300'}`}>{topic}</span>
-                              <span className={`text-sm font-bold ${isWeak ? 'text-error' : 'text-white'}`}>{stats.earned}<span className="text-slate-500 font-normal"> / {stats.total}</span></span>
+                              <span className={`font-medium text-sm ${isWeak ? 'text-red-700' : 'text-gray-900'}`}>{topic}</span>
+                              <span className={`text-sm font-medium ${isWeak ? 'text-red-700' : 'text-gray-900'}`}>{stats.earned}<span className="text-muted font-normal"> / {stats.total}</span></span>
                             </div>
-                            <div className="w-full h-2 bg-dark-bg rounded-full overflow-hidden">
-                              <div className={`h-full rounded-full transition-all ${isWeak ? 'bg-error' : 'bg-emerald-500'}`} style={{ width: `${pct}%` }} />
+                            <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                              <div className={`h-full rounded-full transition-all ${isWeak ? 'bg-red-500' : 'bg-teal'}`} style={{ width: `${pct}%` }} />
                             </div>
                           </div>
                         );
@@ -163,30 +162,30 @@ export default function StudentModal({ student, roomCode, onClose }) {
 
                 {/* ANSWER REVIEW */}
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-4">Detailed Review</h3>
+                  <h3 className="text-[10px] font-medium uppercase tracking-wider text-muted mb-4">Detailed Review</h3>
                   {questionResults.length === 0 ? (
-                    <p className="text-slate-500 text-sm">No answers recorded.</p>
+                    <p className="text-muted text-sm">No answers recorded.</p>
                   ) : (
                     <div className="space-y-3">
                       {questionResults.map((qr, idx) => (
-                        <div key={idx} className={`p-4 rounded-xl border-l-4 ${qr.isCorrect ? 'bg-emerald-500/5 border-l-emerald-500 border border-emerald-500/15' : 'bg-error/5 border-l-error border border-error/15'}`}>
+                        <div key={idx} className={`p-4 rounded-xl border-l-4 ${qr.isCorrect ? 'bg-teal-light/20 border-l-teal border border-teal/10' : 'bg-red-50/20 border-l-red-500 border border-red-200'}`}>
                           <div className="flex items-start gap-3">
-                            <div className={`mt-0.5 shrink-0 w-5 h-5 rounded-full flex items-center justify-center ${qr.isCorrect ? 'bg-emerald-500/20 text-emerald-400' : 'bg-error/20 text-error'}`}>
-                              {qr.isCorrect ? <Check className="w-3 h-3" /> : <X className="w-3 h-3" />}
+                            <div className={`mt-0.5 shrink-0 w-5 h-5 rounded-full flex items-center justify-center ${qr.isCorrect ? 'bg-teal-light text-teal' : 'bg-red-100 text-red-700'}`}>
+                              {qr.isCorrect ? <Check className="w-3 h-3 font-medium" /> : <X className="w-3 h-3 font-medium" />}
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex justify-between items-start gap-3 mb-3">
-                                <h4 className="font-semibold text-white text-sm leading-relaxed">{qr.index}. {qr.text}</h4>
-                                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-dark-bg border border-dark-border text-slate-400 whitespace-nowrap shrink-0">{qr.tag}</span>
+                                <h4 className="font-medium text-gray-900 text-sm leading-relaxed">{qr.index}. {qr.text}</h4>
+                                <span className="badge-ended text-[10px] uppercase font-medium tracking-wider px-2 py-0.5 whitespace-nowrap shrink-0">{qr.tag}</span>
                               </div>
                               <div className="grid sm:grid-cols-2 gap-2 text-sm">
-                                <div className={`p-2.5 rounded-lg border ${qr.isCorrect ? 'bg-emerald-500/10 border-emerald-500/20' : 'bg-error/10 border-error/20'}`}>
-                                  <span className={`block mb-1 text-[10px] font-bold uppercase tracking-wider ${qr.isCorrect ? 'text-emerald-500/70' : 'text-error/70'}`}>Your Answer</span>
-                                  <span className={`font-medium ${qr.isCorrect ? 'text-emerald-400' : 'text-error'}`}>{qr.studentAnsText}</span>
+                                <div className={`p-2.5 rounded-lg border ${qr.isCorrect ? 'bg-teal-light/40 border-teal/20' : 'bg-red-50/50 border-red-200'}`}>
+                                  <span className={`block mb-1 text-[10px] font-medium uppercase tracking-wider ${qr.isCorrect ? 'text-teal' : 'text-red-700'}`}>Your Answer</span>
+                                  <span className={`font-medium ${qr.isCorrect ? 'text-teal' : 'text-red-800'}`}>{qr.studentAnsText}</span>
                                 </div>
-                                <div className="p-2.5 rounded-lg bg-emerald-500/5 border border-emerald-500/20">
-                                  <span className="block mb-1 text-[10px] font-bold uppercase tracking-wider text-emerald-500/70">Correct Answer</span>
-                                  <span className="font-medium text-emerald-400">{qr.correctAnsText}</span>
+                                <div className="p-2.5 rounded-lg bg-teal-light/40 border border-teal/20">
+                                  <span className="block mb-1 text-[10px] font-medium uppercase tracking-wider text-teal">Correct Answer</span>
+                                  <span className="font-medium text-teal">{qr.correctAnsText}</span>
                                 </div>
                               </div>
                             </div>
@@ -200,13 +199,13 @@ export default function StudentModal({ student, roomCode, onClose }) {
             )}
 
             {/* FOOTER */}
-            <div className="p-4 border-t border-dark-border bg-dark-surface shrink-0 flex items-center justify-between gap-4">
+            <div className="p-4 border-t border-gray-200 bg-white shrink-0 flex items-center justify-between gap-4">
               <button onClick={onClose} className="btn-secondary px-5 py-2 text-sm">
                 Close
               </button>
               {weakTopicsCount > 0 && (
-                <span className="flex items-center gap-2 text-sm font-medium text-yellow-400 bg-yellow-500/10 border border-yellow-500/20 px-3 py-1.5 rounded-lg">
-                  <AlertTriangle className="w-4 h-4 shrink-0" />
+                <span className="flex items-center gap-2 text-sm font-medium text-amber-700 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-lg">
+                  <AlertTriangle className="w-4 h-4 shrink-0 text-amber-500" />
                   Struggling in {weakTopicsCount} topic{weakTopicsCount > 1 ? 's' : ''}
                 </span>
               )}

@@ -6,16 +6,16 @@ export default function AIGeneratorPanel({ aiGenerator }) {
   const { aiPanelOpen, setAiPanelOpen } = aiGenerator;
 
   return (
-    <div className="bg-dark-bg border border-accent/30 rounded-xl overflow-hidden mb-6 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
+    <div className="bg-white border border-gray-200 rounded-xl overflow-hidden mb-6">
       <button
         onClick={() => setAiPanelOpen(!aiPanelOpen)}
-        className="w-full flex items-center justify-between p-4 bg-accent/5 hover:bg-accent/10 transition-colors"
+        className="w-full flex items-center justify-between p-4 bg-teal-light/20 hover:bg-teal-light/40 transition-colors"
       >
         <div className="flex items-center gap-2">
-          <Sparkles className="w-5 h-5 text-accent" />
-          <span className="font-medium text-white">Generate Questions with AI</span>
+          <Sparkles className="w-5 h-5 text-teal" />
+          <span className="font-medium text-gray-900">Generate Questions with AI</span>
         </div>
-        {aiPanelOpen ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
+        {aiPanelOpen ? <ChevronUp className="w-5 h-5 text-muted" /> : <ChevronDown className="w-5 h-5 text-muted" />}
       </button>
       
       <AnimatePresence>
@@ -26,7 +26,7 @@ export default function AIGeneratorPanel({ aiGenerator }) {
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden"
           >
-            <div className="p-4 border-t border-accent/20 space-y-4">
+            <div className="p-4 border-t border-gray-200 space-y-4">
               <AIGeneratorForm aiGenerator={aiGenerator} />
             </div>
           </motion.div>

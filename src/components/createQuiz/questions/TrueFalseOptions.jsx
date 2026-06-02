@@ -5,7 +5,7 @@ export default function TrueFalseOptions({ q, updateQuestion }) {
         <button
           key={val}
           onClick={() => updateQuestion(q.id, 'correct', idx)}
-          className={`flex-1 py-3 rounded-xl border font-medium text-sm transition-colors ${q.correct === idx ? 'border-accent bg-accent/10 text-accent' : 'border-dark-border bg-dark-surface text-slate-400 hover:border-slate-500'}`}
+          className={`flex-1 py-3 rounded-xl border font-medium text-sm transition-colors ${q.correct === idx ? 'border-teal bg-teal-light text-teal' : 'border-gray-200 bg-white text-muted hover:border-teal'}`}
         >
           {val}
         </button>

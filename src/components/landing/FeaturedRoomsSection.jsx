@@ -1,61 +1,68 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Users, Loader2 } from 'lucide-react';
+import { ArrowRight, Loader2, BookOpen, Users } from 'lucide-react';
 
 export default function FeaturedRoomsSection({ featuredRooms, isLoading }) {
   return (
-    <section className="py-24 border-t border-dark-border/50 bg-dark-surface/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section style={{ padding: '96px 0', borderBottom: '1px solid #E5E7EB', background: '#FFFFFF' }}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Header */}
         <div className="flex justify-between items-end mb-10">
           <div>
-            <h2 className="text-3xl font-bold mb-2">Featured Rooms</h2>
-            <p className="text-slate-400">Join active public quizzes happening right now.</p>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 500, color: '#111827', marginBottom: '0.375rem', letterSpacing: '-0.5px' }}>Featured Rooms</h2>
+            <p style={{ color: '#111827', fontSize: '0.9375rem' }}>Join active public quizzes happening right now.</p>
           </div>
-          <Link to="/explore" className="hidden sm:flex items-center gap-2 text-primary-start hover:text-primary-end font-medium transition-colors">
-            View all <ArrowRight className="w-4 h-4" />
+          <Link
+            to="/explore"
+            className="flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-teal-hover"
+            style={{ color: '#0D9488' }}
+          >
+            View all <ArrowRight style={{ width: 14, height: 14 }} />
           </Link>
         </div>
 
+        {/* Card Layout */}
         {isLoading ? (
           <div className="flex justify-center py-10">
-            <Loader2 className="w-8 h-8 text-primary-start animate-spin" />
+            <Loader2 style={{ width: 28, height: 28, color: '#0D9488' }} className="animate-spin" />
           </div>
         ) : featuredRooms.length === 0 ? (
-          <div className="glass-card p-10 rounded-2xl text-center border-dashed">
-            <p className="text-slate-400">No public rooms available right now. Be the first to host one!</p>
-            <Link to="/create" className="btn-primary inline-flex mt-6">Host a Quiz</Link>
+          <div className="card p-10 text-center max-w-3xl mx-auto" style={{ borderStyle: 'dashed' }}>
+            <p style={{ color: '#111827' }}>No public rooms available right now. Be the first to host one!</p>
+            <Link to="/create" className="btn-primary inline-flex mt-5">Host a Quiz</Link>
           </div>
         ) : (
-          <div className="flex overflow-x-auto pb-8 -mx-4 px-4 sm:mx-0 sm:px-0 gap-6 snap-x hide-scrollbar">
-            {featuredRooms.map((room) => (
-              <Link to={`/room/${room.id}/quiz?solo=true`} key={room.id} className="snap-start shrink-0 w-[300px] interactive-card p-6 rounded-2xl flex flex-col group cursor-pointer block">
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {room.tags.slice(0, 3).map(tag => (
-                    <span key={tag} className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-dark-border text-slate-300">
-                      {tag}
-                    </span>
-                  ))}
-                  {room.tags.length > 3 && (
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-dark-bg border border-dark-border text-slate-400">
-                      +{room.tags.length - 3} more
-                    </span>
-                  )}
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-primary-start transition-colors line-clamp-2">
-                  {room.title}
-                </h3>
-                <div className="text-sm text-slate-400 mb-6 flex-1">
-                  By {room.creator} • {room.questions} Qs
-                </div>
-                <div className="flex items-center justify-between pt-4 border-t border-dark-border">
-                  <div className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
-                    <Users className="w-3.5 h-3.5" />
-                    {room.joined.toLocaleString()} joined
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featuredRooms.slice(0, 4).map((room) => (
+              <div key={room.id} className="card flex flex-col justify-between hover:border-teal transition-colors group">
+                <div className="mb-4">
+                  <div className="flex items-center gap-2 mb-3 flex-wrap">
+                    {room.tags.slice(0, 2).map(tag => (
+                      <span key={tag} className="badge-ended" style={{ fontSize: '10px', padding: '2px 6px' }}>
+                        {tag}
+                      </span>
+                    ))}
                   </div>
-                  <div className="flex items-center gap-1 text-xs font-bold text-primary-start group-hover:translate-x-1 transition-transform">
-                    Join <ArrowRight className="w-3 h-3" />
+                  <h3 style={{ fontSize: '1.125rem', fontWeight: 500, color: '#111827', marginBottom: '0.5rem' }} className="group-hover:text-teal transition-colors">
+                    {room.title}
+                  </h3>
+                  <div className="flex flex-wrap items-center gap-3 text-sm" style={{ color: '#111827' }}>
+                    <span className="flex items-center gap-1"><BookOpen style={{ width: 13, height: 13 }} /> {room.questions} Qs</span>
+                    <span style={{ color: '#E5E7EB' }}>•</span>
+                    <span className="flex items-center gap-1"><Users style={{ width: 13, height: 13 }} /> {room.joined.toLocaleString()} joined</span>
                   </div>
                 </div>
-              </Link>
+
+                <div className="mt-4 pt-4 border-t border-gray-100 flex justify-end">
+                  <Link
+                    to={`/room/${room.id}/quiz?solo=true`}
+                    className="flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-teal-hover w-full justify-center"
+                    style={{ color: '#0D9488', padding: '8px 0' }}
+                  >
+                    Join Quiz <ArrowRight style={{ width: 14, height: 14 }} className="group-hover:translate-x-0.5 transition-transform" />
+                  </Link>
+                </div>
+              </div>
             ))}
           </div>
         )}

@@ -26,12 +26,9 @@ export default function Explore() {
     fetchRooms();
   }, []);
 
-  // Extract all unique tags
   const allTags = ['All', ...new Set(publicRooms.flatMap(room => room.tags))].sort();
-
-  // Filter rooms
   const filteredRooms = publicRooms.filter(room => {
-    const matchesSearch = room.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    const matchesSearch = room.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           room.creator.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesTag = selectedTag === 'All' || room.tags.includes(selectedTag);
     return matchesSearch && matchesTag;
@@ -39,11 +36,11 @@ export default function Explore() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex flex-col bg-dark-bg">
+      <div className="min-h-screen flex flex-col" style={{ background: '#FAF9F7' }}>
         <Navbar />
-        <div className="flex-1 flex flex-col items-center justify-center gap-4">
-          <Loader2 className="w-8 h-8 text-primary-start animate-spin" />
-          <p className="text-slate-400">Finding public quizzes...</p>
+        <div className="flex-1 flex flex-col items-center justify-center gap-3">
+          <Loader2 style={{ width: 28, height: 28, color: '#0D9488' }} className="animate-spin" />
+          <p style={{ color: '#111827' }}>Finding public quizzes...</p>
         </div>
         <Footer />
       </div>
@@ -51,121 +48,118 @@ export default function Explore() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col" style={{ background: '#FAF9F7' }}>
       <Navbar />
-      
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        
-        {/* Header & Search */}
-        <div className="mb-12">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <h1 className="text-4xl font-extrabold text-white mb-4">Explore Quizzes</h1>
-            <p className="text-lg text-slate-400">Discover and join thousands of public quizzes created by the Quizix community.</p>
+      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8" style={{ padding: '64px 1rem' }}>
+
+        {/* Header */}
+        <div className="mb-10">
+          <div className="max-w-xl mb-8">
+            <h1 style={{ fontSize: '1.75rem', fontWeight: 500, color: '#111827', marginBottom: '0.5rem', letterSpacing: '-0.5px' }}>Explore Quizzes</h1>
+            <p style={{ color: '#111827', lineHeight: 1.6 }}>Discover and join public quizzes created by the Quizix community.</p>
           </div>
 
-          <div className="flex flex-col md:flex-row gap-4 max-w-4xl mx-auto">
+          <div className="flex flex-col md:flex-row gap-3 max-w-2xl">
             <div className="flex-1 relative">
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-slate-500" />
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Search style={{ height: 16, width: 16, color: '#111827' }} />
               </div>
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 bg-dark-surface border border-dark-border rounded-xl focus:ring-2 focus:ring-primary-start/50 focus:border-primary-start outline-none transition-all text-white shadow-lg"
-                placeholder="Search by title or creator..."
+                className="form-input"
+                style={{ paddingLeft: '2.5rem' }}
+                placeholder="Search by title..."
               />
             </div>
-            <div className="w-full md:w-64 relative">
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <Filter className="h-5 w-5 text-slate-500" />
+            <div className="w-full md:w-52 relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Filter style={{ height: 15, width: 15, color: '#111827' }} />
               </div>
               <select
                 value={selectedTag}
                 onChange={(e) => setSelectedTag(e.target.value)}
-                className="w-full pl-12 pr-10 py-4 bg-dark-surface border border-dark-border rounded-xl focus:ring-2 focus:ring-primary-start/50 focus:border-primary-start outline-none transition-all text-white shadow-lg appearance-none"
+                className="form-input appearance-none"
+                style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem', color: '#111827' }}
               >
                 {allTags.map(tag => (
                   <option key={tag} value={tag}>{tag}</option>
                 ))}
               </select>
-              <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                <svg className="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <svg style={{ width: 14, height: 14, color: '#111827' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Results Grid */}
-        <div className="mb-6 flex justify-between items-end">
-          <h2 className="text-xl font-bold text-white">
+        {/* Results count */}
+        <div className="mb-5">
+          <p style={{ fontSize: '0.875rem', color: '#111827' }}>
             {filteredRooms.length} {filteredRooms.length === 1 ? 'result' : 'results'} found
-          </h2>
+          </p>
         </div>
 
         {filteredRooms.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredRooms.map(room => (
-              <div key={room.id} className="interactive-card p-6 rounded-2xl flex flex-col group">
-                <div className="flex gap-2 mb-4 flex-wrap">
-                  {room.tags.map(tag => (
-                    <span key={tag} className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-dark-border text-slate-300">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-primary-start transition-colors line-clamp-2">
-                  {room.title}
-                </h3>
-                
-                <div className="flex items-center gap-2 mb-6 text-sm text-slate-400">
-                  <div className="w-6 h-6 rounded-full bg-primary-start/20 flex items-center justify-center text-primary-start text-xs font-bold uppercase">
-                    {room.creator.charAt(0).toUpperCase()}
+            {filteredRooms.map((room) => (
+              <div key={room.id} className="card flex flex-col justify-between hover:border-teal transition-colors">
+                <div className="mb-4">
+                  <div className="flex items-center gap-2 mb-3 flex-wrap">
+                    {room.tags.map(tag => (
+                      <span key={tag} className="badge-ended" style={{ fontSize: '10px', padding: '2px 6px' }}>
+                        {tag}
+                      </span>
+                    ))}
                   </div>
-                  <span>By {room.creator}</span>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
-                  <div className="flex items-center gap-2 text-slate-400">
-                    <BookOpen className="w-4 h-4" /> {room.questions} Qs
-                  </div>
-                  <div className="flex items-center gap-2 text-slate-400">
-                    <Users className="w-4 h-4" /> {room.joined.toLocaleString()}
+                  <h3 style={{ fontSize: '1.125rem', fontWeight: 500, color: '#111827', marginBottom: '0.5rem', lineHeight: 1.4 }}>
+                    {room.title}
+                  </h3>
+                  <div className="flex flex-wrap items-center gap-3 text-sm" style={{ color: '#111827' }}>
+                    <span className="flex items-center gap-1"><BookOpen style={{ width: 13, height: 13 }} /> {room.questions} Qs</span>
+                    <span style={{ color: '#E5E7EB' }}>•</span>
+                    <span className="flex items-center gap-1"><Users style={{ width: 13, height: 13 }} /> {room.joined.toLocaleString()} joined</span>
                   </div>
                 </div>
 
-                <div className="mt-auto pt-4 border-t border-dark-border">
-                  <Link to={`/room/${room.id}/quiz?solo=true`} className="w-full flex items-center justify-between text-primary-start font-bold group-hover:translate-x-1 transition-transform">
-                    Join Solo <ArrowRight className="w-5 h-5" />
+                <div className="mt-4 pt-4 border-t border-gray-100 flex justify-end">
+                  <Link
+                    to={`/room/${room.id}/quiz?solo=true`}
+                    className="btn-secondary group flex items-center justify-center w-full"
+                    style={{ padding: '10px 16px', fontSize: '0.875rem' }}
+                  >
+                    <span>Join Solo</span>
+                    <ArrowRight style={{ width: 14, height: 14 }} className="ml-1.5 group-hover:translate-x-0.5 transition-transform" />
                   </Link>
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          <div className="py-20 text-center glass-card rounded-2xl">
-            <Search className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">
+          <div className="card py-20 text-center max-w-3xl mx-auto">
+            <Search style={{ width: 36, height: 36, color: '#9CA3AF', margin: '0 auto 1rem' }} />
+            <h3 style={{ fontSize: '1.125rem', fontWeight: 500, color: '#111827', marginBottom: '0.5rem' }}>
               {publicRooms.length === 0 ? "No public rooms available" : "No quizzes found"}
             </h3>
-            <p className="text-slate-400">
-              {publicRooms.length === 0 
-                ? "There are currently no active public quizzes." 
+            <p style={{ color: '#111827', fontSize: '0.9375rem' }}>
+              {publicRooms.length === 0
+                ? "There are currently no active public quizzes."
                 : "We couldn't find any public rooms matching your criteria."}
             </p>
             {publicRooms.length > 0 && (
-              <button 
+              <button
                 onClick={() => { setSearchTerm(''); setSelectedTag('All'); }}
-                className="mt-6 btn-secondary"
+                className="btn-secondary mt-5"
               >
                 Clear filters
               </button>
             )}
           </div>
         )}
-
       </main>
-      
       <Footer />
     </div>
   );

@@ -14,34 +14,36 @@ export default function AIGeneratorForm({ aiGenerator }) {
   return (
     <>
       {aiError && (
-        <div className="p-3 bg-error/10 border border-error/20 text-error rounded-lg text-sm">
+        <div className="p-3 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
           {aiError}
         </div>
       )}
       {aiSuccess && (
-        <div className="p-3 bg-accent/10 border border-accent/20 text-accent rounded-lg text-sm">
+        <div className="p-3 bg-teal-light border border-teal/20 text-teal rounded-lg text-sm">
           {aiSuccess}
         </div>
       )}
 
       <div className="grid sm:grid-cols-2 gap-4">
         <div className="sm:col-span-2">
-          <label className="block text-xs font-medium text-slate-400 mb-1">Topic</label>
+          <label className="block text-xs font-medium text-muted mb-1">Topic</label>
           <input 
             type="text" 
             value={aiTopic}
             onChange={(e) => setAiTopic(e.target.value)}
             placeholder="e.g. World War 2, Photosynthesis"
-            className="w-full bg-dark-surface border border-dark-border rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-accent"
+            className="form-input"
+            style={{ padding: '8px 12px', fontSize: '0.875rem' }}
           />
         </div>
         
         <div>
-          <label className="block text-xs font-medium text-slate-400 mb-1">Difficulty</label>
+          <label className="block text-xs font-medium text-muted mb-1">Difficulty</label>
           <select 
             value={aiDifficulty}
             onChange={(e) => setAiDifficulty(e.target.value)}
-            className="w-full bg-dark-surface border border-dark-border rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-accent"
+            className="form-input appearance-none bg-white"
+            style={{ padding: '8px 12px', fontSize: '0.875rem' }}
           >
             <option value="Easy">Easy</option>
             <option value="Medium">Medium</option>
@@ -50,7 +52,7 @@ export default function AIGeneratorForm({ aiGenerator }) {
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-slate-400 mb-1">How many questions (1-10)</label>
+          <label className="block text-xs font-medium text-muted mb-1">How many questions (1-10)</label>
           <input 
             type="number" 
             min="1"
@@ -62,16 +64,18 @@ export default function AIGeneratorForm({ aiGenerator }) {
               if (val > 10) val = 10;
               setAiCount(val || 1);
             }}
-            className="w-full bg-dark-surface border border-dark-border rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-accent"
+            className="form-input"
+            style={{ padding: '8px 12px', fontSize: '0.875rem' }}
           />
         </div>
 
         <div className="sm:col-span-2">
-          <label className="block text-xs font-medium text-slate-400 mb-1">Question Type</label>
+          <label className="block text-xs font-medium text-muted mb-1">Question Type</label>
           <select 
             value={aiType}
             onChange={(e) => setAiType(e.target.value)}
-            className="w-full bg-dark-surface border border-dark-border rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-accent"
+            className="form-input appearance-none bg-white"
+            style={{ padding: '8px 12px', fontSize: '0.875rem' }}
           >
             <option value="MCQ">MCQ</option>
             <option value="True or False">True or False</option>
@@ -83,7 +87,8 @@ export default function AIGeneratorForm({ aiGenerator }) {
       <button 
         onClick={generate}
         disabled={isGenerating}
-        className="w-full mt-4 bg-accent/20 hover:bg-accent/30 text-accent border border-accent/50 font-medium py-2 rounded-lg flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
+        className="btn-primary w-full mt-4 gap-2"
+        style={{ padding: '10px 22px', fontSize: '0.875rem' }}
       >
         {isGenerating ? (
           <>

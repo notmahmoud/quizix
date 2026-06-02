@@ -12,7 +12,7 @@ export default function HostLobby() {
   } = useHostLobby();
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col" style={{ background: '#FAF9F7' }}>
       <Navbar />
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <LobbyHeader code={code} copied={copied} onCopy={handleCopyCode} />

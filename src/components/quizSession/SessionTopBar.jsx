@@ -11,49 +11,59 @@ export default function SessionTopBar({ title, globalTimeLeft, totalTime, answer
   const isWarning = pct <= 20;
   const isDanger = pct <= 10;
 
+  const timerBg = isDanger ? '#FEF2F2' : isWarning ? '#FFFBEB' : '#FAF9F7';
+  const timerBorder = isDanger ? '#FECACA' : isWarning ? '#FDE68A' : '#E5E7EB';
+  const timerColor = isDanger ? '#EF4444' : isWarning ? '#F59E0B' : '#111827';
+
   return (
-    <header className="sticky top-0 z-40 bg-dark-bg/90 backdrop-blur-lg border-b border-dark-border">
+    <header style={{ background: '#FFFFFF', borderBottom: '1px solid #E5E7EB' }} className="sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
-        {/* Left: Back & Title */}
-        <div className="flex-1 flex items-center gap-3 min-w-0">
-          <button 
+        {/* Left */}
+        <div className="flex-1 flex items-center gap-2 min-w-0">
+          <button
             onClick={onExit}
-            className="p-2 -ml-2 rounded-lg text-slate-400 hover:text-white hover:bg-dark-border transition-colors flex-shrink-0"
+            className="flex items-center justify-center rounded-lg transition-colors hover:bg-gray-100 flex-shrink-0"
+            style={{ width: 34, height: 34, color: '#4B5563' }}
             title="Leave Quiz"
           >
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft style={{ width: 18, height: 18 }} />
           </button>
-          <h1 className="text-sm font-bold text-white truncate hidden sm:block" title={title}>
+          <h1 style={{ fontSize: '0.9375rem', fontWeight: 500, color: '#111827' }} className="truncate hidden sm:block" title={title}>
             {title}
           </h1>
         </div>
 
-        {/* Global Timer */}
+        {/* Timer */}
         <div className="flex-1 flex justify-center">
           {globalTimeLeft !== null && (
-            <div className={`flex items-center gap-2 px-4 py-2 rounded-full border font-mono font-bold text-xl transition-colors
-              ${isDanger
-                ? 'border-error/50 bg-error/10 text-error animate-pulse'
-                : isWarning
-                  ? 'border-orange-500/50 bg-orange-500/10 text-orange-400'
-                  : 'border-dark-border bg-dark-surface text-white'
-              }`}
+            <div
+              className="flex items-center gap-2 font-mono font-medium"
+              style={{
+                padding: '6px 16px',
+                borderRadius: 8,
+                border: `1px solid ${timerBorder}`,
+                background: timerBg,
+                color: timerColor,
+                fontSize: '1.125rem',
+                animation: isDanger ? 'pulse 1s infinite' : undefined
+              }}
             >
-              <Clock className="w-5 h-5 shrink-0" />
+              <Clock style={{ width: 16, height: 16, flexShrink: 0 }} />
               {formatTime(globalTimeLeft)}
             </div>
           )}
         </div>
 
-        {/* Submit */}
+        {/* Right */}
         <div className="flex-1 flex items-center justify-end gap-3 min-w-0">
-          <span className="text-xs font-medium text-slate-400 hidden md:block whitespace-nowrap">
+          <span style={{ fontSize: '0.8125rem', color: '#4B5563', whiteSpace: 'nowrap' }} className="hidden md:block">
             {answeredCount} / {totalQuestions} answered
           </span>
           <button
             onClick={onSubmit}
             disabled={answeredCount === 0 || isSubmitting}
-            className="btn-primary px-4 py-2 text-sm disabled:opacity-40 whitespace-nowrap"
+            className="btn-primary whitespace-nowrap"
+            style={{ padding: '7px 16px', fontSize: '0.875rem' }}
           >
             {isSubmitting ? 'Submitting...' : 'Submit'}
           </button>

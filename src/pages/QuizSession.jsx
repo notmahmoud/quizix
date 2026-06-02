@@ -27,8 +27,8 @@ export default function QuizSession() {
 
   if (!roomData) {
     return (
-      <div className="min-h-screen bg-dark-bg flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-primary-start animate-spin" />
+      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAF9F7' }}>
+        <Loader2 className="w-8 h-8 text-teal animate-spin" />
       </div>
     );
   }
@@ -41,7 +41,7 @@ export default function QuizSession() {
     : null;
 
   return (
-    <div className="min-h-screen bg-dark-bg flex flex-col">
+    <div className="min-h-screen flex flex-col" style={{ background: '#FAF9F7' }}>
       <SessionTopBar
         title={roomData.title}
         globalTimeLeft={globalTimeLeft}
@@ -54,7 +54,7 @@ export default function QuizSession() {
       />
 
       {/* Mobile navigator strip */}
-      <div className="lg:hidden sticky top-[57px] z-30 bg-dark-bg/95 border-b border-dark-border px-4 py-3">
+      <div className="lg:hidden sticky top-[57px] z-30 bg-bg/95 border-b border-border px-4 py-3">
         <QuestionNavigator
           questions={questions}
           answers={answers}

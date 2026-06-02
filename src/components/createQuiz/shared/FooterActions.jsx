@@ -8,7 +8,7 @@ export default function FooterActions({ step, setStep, handleNextStep, handleLau
           {formError}
         </div>
       )}
-      <div className="flex justify-between items-center border-t border-dark-border pt-6">
+      <div className="flex justify-between items-center border-t border-gray-200 pt-6">
         <button 
           onClick={() => { setFormError(''); setStep(step - 1); }}
           disabled={step === 1 || isSubmitting}
@@ -28,7 +28,7 @@ export default function FooterActions({ step, setStep, handleNextStep, handleLau
           <button 
             onClick={handleLaunch}
             disabled={isSubmitting}
-            className="btn-primary flex items-center gap-2 px-8 bg-gradient-to-r from-accent to-emerald-400 hover:shadow-accent/25"
+            className="btn-primary flex items-center gap-2 px-8"
           >
             {isSubmitting ? 'Launching...' : 'Launch Room'} <Rocket className="w-5 h-5" />
           </button>

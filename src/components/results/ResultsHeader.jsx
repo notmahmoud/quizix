@@ -7,7 +7,7 @@ export default function ResultsHeader({ score, code }) {
 
   return (
     <div className="text-center mb-10">
-      <motion.div 
+      <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ type: 'spring', bounce: 0.5 }}
@@ -18,16 +18,16 @@ export default function ResultsHeader({ score, code }) {
             cx="80"
             cy="80"
             r={radius}
-            className="stroke-dark-border"
-            strokeWidth="12"
+            className="stroke-gray-200"
+            strokeWidth="10"
             fill="none"
           />
           <motion.circle
             cx="80"
             cy="80"
             r={radius}
-            className={score >= 70 ? "stroke-accent" : score >= 50 ? "stroke-yellow-500" : "stroke-error"}
-            strokeWidth="12"
+            className={score >= 70 ? "stroke-teal" : score >= 50 ? "stroke-amber-400" : "stroke-red-500"}
+            strokeWidth="10"
             fill="none"
             strokeLinecap="round"
             initial={{ strokeDashoffset: circumference }}
@@ -37,24 +37,24 @@ export default function ResultsHeader({ score, code }) {
           />
         </svg>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
-          <span className="text-4xl font-extrabold text-white">{score}%</span>
+          <span className="text-4xl font-semibold text-gray-900">{score}%</span>
         </div>
       </motion.div>
-      
-      <motion.h1 
+
+      <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-3xl font-bold text-white mb-2"
+        className="text-3xl font-medium text-gray-900 mb-2 letter-spacing[-0.5px]"
       >
         {score >= 80 ? 'Excellent work!' : score >= 50 ? 'Good effort!' : 'Needs more practice'}
       </motion.h1>
-      <motion.p 
+      <motion.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="text-slate-400"
+        className="text-muted"
       >
-        You completed the quiz in Room <span className="font-mono text-white">{code}</span>
+        You completed the quiz in Room <span className="font-mono font-semibold text-teal">{code}</span>
       </motion.p>
     </div>
   );

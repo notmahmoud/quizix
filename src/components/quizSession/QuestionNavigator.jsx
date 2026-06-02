@@ -1,7 +1,7 @@
 export default function QuestionNavigator({ questions, answers, activeIndex, onJump }) {
   return (
     <div className="flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible pb-2 lg:pb-0 lg:pr-2">
-      <span className="hidden lg:block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2 shrink-0">Questions</span>
+      <span className="hidden lg:block section-label mb-2 shrink-0">Questions</span>
       <div className="flex flex-row lg:flex-col gap-2">
         {questions.map((q, idx) => {
           const isAnswered = answers[q.id] !== undefined;
@@ -11,16 +11,24 @@ export default function QuestionNavigator({ questions, answers, activeIndex, onJ
               key={q.id ?? idx}
               onClick={() => onJump(idx)}
               title={`Question ${idx + 1}`}
-              className={`
-                shrink-0 w-9 h-9 rounded-full text-sm font-bold transition-all duration-200
-                flex items-center justify-center border-2
-                ${isActive
-                  ? 'border-primary-start bg-primary-start text-white shadow-[0_0_12px_rgba(99,102,241,0.4)] scale-110'
+              style={{
+                width: 34, height: 34, borderRadius: 8, fontSize: '0.8125rem', fontWeight: 500,
+                flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                border: isActive
+                  ? '2px solid #0D9488'
                   : isAnswered
-                    ? 'border-accent bg-accent/20 text-accent'
-                    : 'border-dark-border bg-dark-surface text-slate-400 hover:border-slate-500 hover:text-slate-300'
-                }
-              `}
+                    ? '2px solid #0D9488'
+                    : '1px solid #E5E7EB',
+                background: isActive
+                  ? '#0D9488'
+                  : isAnswered
+                    ? '#E6FAF8'
+                    : '#FFFFFF',
+                color: isActive ? '#FFFFFF' : isAnswered ? '#0D9488' : '#4B5563',
+                cursor: 'pointer',
+                transition: 'all 150ms ease',
+                transform: isActive ? 'scale(1.08)' : 'none',
+              }}
             >
               {idx + 1}
             </button>

@@ -16,14 +16,14 @@ export default function Results() {
 
   if (!roomData) {
     return (
-      <div className="min-h-screen bg-dark-bg flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-primary-start animate-spin" />
+      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAF9F7' }}>
+        <Loader2 className="w-8 h-8 text-teal animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col" style={{ background: '#FAF9F7' }}>
       <Navbar />
       <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <ResultsHeader score={result.score} code={code} />

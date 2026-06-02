@@ -3,51 +3,51 @@ import { ArrowRight } from 'lucide-react';
 export default function StudentResultsTable({ students, onSelectStudent }) {
   return (
     <div>
-      <h2 className="text-xl font-bold text-white mb-6">Student Results</h2>
-      <div className="glass-card rounded-2xl overflow-hidden">
+      <h2 className="text-xl font-medium text-gray-900 mb-6 letter-spacing[-0.5px]">Student Results</h2>
+      <div className="card overflow-hidden" style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: 10 }}>
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-dark-bg border-b border-dark-border">
-              <th className="py-4 px-6 font-semibold text-slate-400 text-sm">Student</th>
-              <th className="py-4 px-6 font-semibold text-slate-400 text-sm">Score</th>
-              <th className="py-4 px-6 font-semibold text-slate-400 text-sm">Status</th>
+            <tr className="bg-white border-b border-gray-200">
+              <th className="py-4 px-6 font-medium text-muted text-sm">Student</th>
+              <th className="py-4 px-6 font-medium text-muted text-sm">Score</th>
+              <th className="py-4 px-6 font-medium text-muted text-sm">Status</th>
               <th className="py-4 px-6"></th>
             </tr>
           </thead>
           <tbody>
             {students.length === 0 ? (
               <tr>
-                <td colSpan="4" className="py-8 text-center text-slate-400">
+                <td colSpan="4" className="py-8 text-center text-muted">
                   No students have joined yet.
                 </td>
               </tr>
             ) : (
               students.map((student) => (
-                <tr 
+                <tr
                   key={student.id}
                   onClick={() => onSelectStudent(student)}
-                  className="border-b border-dark-border/50 last:border-0 hover:bg-dark-bg/50 transition-colors cursor-pointer group"
+                  className="border-b border-gray-200 last:border-0 hover:bg-bg/20 transition-colors cursor-pointer group"
                 >
-                  <td className="py-4 px-6 font-medium text-white flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary-start/20 flex items-center justify-center text-primary-start text-xs font-bold uppercase shrink-0">
+                  <td className="py-4 px-6 font-medium text-gray-900 flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-teal-light border border-teal/20 flex items-center justify-center text-teal text-xs font-medium uppercase shrink-0">
                       {student.name ? student.name.charAt(0) : '?'}
                     </div>
                     {student.name}
                   </td>
-                  <td className="py-4 px-6 font-bold">
+                  <td className="py-4 px-6 font-medium">
                     {student.score !== undefined && student.score !== null ? (
-                      <span className={student.score >= 60 ? 'text-emerald-400' : 'text-error'}>{student.score}%</span>
+                      <span className={student.score >= 60 ? 'text-teal font-semibold' : 'text-red-500'}>{student.score}%</span>
                     ) : (
-                      <span className="text-slate-500">-</span>
+                      <span className="text-muted">-</span>
                     )}
                   </td>
                   <td className="py-4 px-6">
-                    <span className={`px-2 py-1 rounded text-xs font-bold uppercase ${student.status === 'finished' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-dark-bg border border-dark-border text-slate-400'}`}>
+                    <span className={`px-2 py-1 rounded text-[10px] font-medium uppercase ${student.status === 'finished' ? 'bg-teal-light text-teal border border-teal/10' : 'bg-gray-100 border border-gray-200 text-muted'}`}>
                       {student.status}
                     </span>
                   </td>
                   <td className="py-4 px-6 text-right">
-                    <span className="text-primary-start font-medium opacity-0 group-hover:opacity-100 flex items-center justify-end gap-1 transition-opacity text-sm">
+                    <span className="text-teal font-medium opacity-0 group-hover:opacity-100 flex items-center justify-end gap-1 transition-opacity text-sm">
                       View Details <ArrowRight className="w-4 h-4" />
                     </span>
                   </td>

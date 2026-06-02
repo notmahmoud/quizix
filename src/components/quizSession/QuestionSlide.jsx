@@ -14,7 +14,7 @@ export default function QuestionSlide({ question, answers, onSelectAnswer, onNex
         transition={{ duration: 0.3, ease: "easeInOut" }}
         className="flex-1 flex flex-col"
       >
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-10 leading-tight text-center">
+        <h1 className="text-3xl sm:text-4xl font-medium text-gray-900 mb-10 leading-tight text-center" style={{ letterSpacing: '-0.5px' }}>
           {question.text}
         </h1>
 
@@ -25,20 +25,19 @@ export default function QuestionSlide({ question, answers, onSelectAnswer, onNex
               <button
                 key={idx}
                 onClick={() => onSelectAnswer(question.id, idx)}
-                className={`w-full text-left p-6 rounded-2xl border-2 transition-all duration-200 group relative overflow-hidden
-                  ${isSelected 
-                    ? 'border-primary-start bg-primary-start/10 shadow-[0_0_20px_rgba(99,102,241,0.15)]' 
-                    : 'border-dark-border bg-dark-surface hover:border-slate-500'
-                  }
-                `}
+                className={`w-full text-left p-5 rounded-xl border-2 transition-all duration-200 group cursor-pointer ${
+                  isSelected
+                    ? 'border-teal bg-teal-light'
+                    : 'border-gray-200 bg-white hover:border-teal'
+                }`}
               >
-                <div className="flex items-center gap-4 relative z-10">
-                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm
-                    ${isSelected ? 'bg-primary-start text-white' : 'bg-dark-bg text-slate-400 group-hover:bg-slate-700'}
-                  `}>
+                <div className="flex items-center gap-4">
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-medium text-sm flex-shrink-0 ${
+                    isSelected ? 'bg-teal text-white' : 'bg-bg text-muted group-hover:bg-teal-light group-hover:text-teal'
+                  }`}>
                     {String.fromCharCode(65 + idx)}
                   </div>
-                  <span className={`text-lg font-medium ${isSelected ? 'text-white' : 'text-slate-300'}`}>
+                  <span className={`text-lg font-medium ${isSelected ? 'text-teal' : 'text-gray-900'}`}>
                     {opt}
                   </span>
                 </div>
@@ -51,7 +50,7 @@ export default function QuestionSlide({ question, answers, onSelectAnswer, onNex
           <button
             onClick={onNext}
             disabled={answers[question.id] === undefined}
-            className="btn-primary flex items-center gap-2 px-10 py-4 text-lg"
+            className="btn-primary flex items-center gap-2 px-10 py-4 text-lg disabled:opacity-40"
           >
             {isLast ? 'Submit Quiz' : 'Next Question'}
             {isLast ? <CheckCircle2 className="w-5 h-5" /> : <ArrowRight className="w-5 h-5" />}

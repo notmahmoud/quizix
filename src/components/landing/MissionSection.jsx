@@ -2,24 +2,24 @@ import { motion } from 'framer-motion';
 import { Target, Lightbulb, Users, TrendingUp } from 'lucide-react';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
 };
 
 const stagger = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.15 } },
+  show: { transition: { staggerChildren: 0.1 } },
 };
 
 const pillars = [
   {
     icon: Lightbulb,
     title: 'Make Learning Active',
-    desc: 'Passive reading fades. Interactive quizzes force recall, deepen understanding, and make concepts stick.',
+    desc: 'Passive reading fades. Interactive quizzes force active recall, deepen understanding, and make key concepts stick.',
   },
   {
     icon: Users,
-    title: 'Connect Educators & Students',
+    title: 'Connect Teams & Students',
     desc: 'A shared, live experience where everyone is in the room together — even when they are miles apart.',
   },
   {
@@ -36,11 +36,9 @@ const pillars = [
 
 export default function MissionSection() {
   return (
-    <section id="vision" className="relative py-28 overflow-hidden">
-      {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-start/10 rounded-full blur-[140px] -z-10" />
-
+    <section id="vision" style={{ padding: '96px 0', borderBottom: '1px solid #E5E7EB', background: '#FAF9F7' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         {/* Header */}
         <motion.div
           initial="hidden"
@@ -49,25 +47,18 @@ export default function MissionSection() {
           variants={stagger}
           className="text-center max-w-2xl mx-auto mb-16"
         >
-          <motion.span
-            variants={fadeUp}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-dark-surface border border-dark-border text-xs font-medium text-slate-300 mb-4"
-          >
-            <span className="flex h-2 w-2 rounded-full bg-accent" />
+          <motion.span variants={fadeUp} className="section-label inline-block mb-3">
             Our Vision
           </motion.span>
-
           <motion.h2
             variants={fadeUp}
-            className="text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-5"
+            style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.375rem)', fontWeight: 500, color: '#111827', marginBottom: '1rem', letterSpacing: '-0.5px' }}
           >
-            Learning Should Be{' '}
-            <span className="text-gradient">Engaging, Not Exhausting</span>
+            Learning Should Be Engaging, Not Exhausting
           </motion.h2>
-
-          <motion.p variants={fadeUp} className="text-slate-400 text-lg leading-relaxed">
+          <motion.p variants={fadeUp} style={{ color: '#4B5563', lineHeight: 1.6, fontSize: '0.9375rem' }}>
             Traditional assessments are slow, impersonal, and tell you almost nothing until it's too late.
-            Quizix exists to change that — one live quiz at a time.
+            Quizix is built to change that — one clean, live session at a time.
           </motion.p>
         </motion.div>
 
@@ -83,13 +74,16 @@ export default function MissionSection() {
             <motion.div
               key={item.title}
               variants={fadeUp}
-              className="interactive-card p-6 rounded-2xl border border-dark-border group hover:border-accent/40 transition-colors duration-300"
+              className="card flex flex-col justify-between"
+              style={{ padding: '24px', background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: 10 }}
             >
-              <div className="w-11 h-11 rounded-xl bg-gradient-primary flex items-center justify-center mb-5 group-hover:shadow-[0_0_20px_rgba(99,102,241,0.4)] transition-shadow">
-                <item.icon className="w-5 h-5 text-white" />
+              <div>
+                <div style={{ width: 40, height: 40, borderRadius: 8, background: '#E6FAF8', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem' }}>
+                  <item.icon style={{ width: 20, height: 20, color: '#0D9488' }} />
+                </div>
+                <h3 style={{ fontWeight: 500, fontSize: '1rem', color: '#111827', marginBottom: '0.75rem' }}>{item.title}</h3>
+                <p style={{ color: '#4B5563', fontSize: '0.875rem', lineHeight: 1.65 }}>{item.desc}</p>
               </div>
-              <h3 className="text-white font-semibold text-base mb-2">{item.title}</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
             </motion.div>
           ))}
         </motion.div>
