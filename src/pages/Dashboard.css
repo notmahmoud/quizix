@@ -1,0 +1,303 @@
+/* ─────────────────────────────────────────
+   DASHBOARD PAGE
+───────────────────────────────────────── */
+
+.dashboard {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #FAFAFA;
+}
+
+.dashboard__loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: #FAFAFA;
+}
+
+.dashboard__loading-text {
+  font-size: 0.9375rem;
+  color: #6B7280;
+}
+
+.dashboard__main {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+/* ── Header row ── */
+.dashboard__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.dashboard__greeting {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #0F0F0F;
+  letter-spacing: -0.04em;
+  margin-bottom: 5px;
+  line-height: 1.15;
+}
+
+.dashboard__greeting-sub {
+  font-size: 0.9375rem;
+  color: #6B7280;
+}
+
+/* ── Stats grid ── */
+.dashboard__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.dashboard__stat-card {
+  background: #FFFFFF;
+  border: 1.5px solid #E8E8E8;
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dashboard__stat-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dashboard__stat-icon--brand {
+  background: #EEF2FF;
+}
+
+.dashboard__stat-icon--amber {
+  background: #FFFBEB;
+}
+
+.dashboard__stat-label {
+  font-size: 0.8125rem;
+  color: #9CA3AF;
+  font-weight: 500;
+  margin-bottom: 4px;
+  letter-spacing: 0.01em;
+}
+
+.dashboard__stat-value {
+  font-size: 1.625rem;
+  font-weight: 800;
+  color: #0F0F0F;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+.dashboard__stat-unit {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #9CA3AF;
+  margin-left: 4px;
+}
+
+/* ── Rooms grid ── */
+.dashboard__rooms-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+/* ── Section heading row ── */
+.dashboard__section-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.dashboard__section-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4F46E5;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.dashboard__section-title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #0F0F0F;
+  letter-spacing: -0.02em;
+}
+
+/* ── Room row cards ── */
+.dashboard__room-card {
+  background: #FFFFFF;
+  border: 1.5px solid #E8E8E8;
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 10px;
+  transition: border-color 160ms ease;
+}
+
+.dashboard__room-card--active {
+  border-color: #4F46E5;
+  background: #FAFBFF;
+}
+
+.dashboard__room-card--link {
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dashboard__room-card--link:hover .dashboard__room-card {
+  border-color: #4F46E5;
+}
+
+.dashboard__room-card-link-wrap {
+  display: block;
+  text-decoration: none;
+}
+
+.dashboard__room-card-link-wrap:hover .dashboard__room-card {
+  border-color: #4F46E5;
+}
+
+.dashboard__room-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.dashboard__room-row:last-child {
+  margin-bottom: 0;
+}
+
+.dashboard__room-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #0F0F0F;
+  letter-spacing: -0.02em;
+  margin-bottom: 3px;
+}
+
+.dashboard__room-code {
+  font-size: 0.8125rem;
+  color: #6B7280;
+}
+
+.dashboard__room-code-val {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-weight: 700;
+  color: #0F0F0F;
+  letter-spacing: 0.08em;
+}
+
+.dashboard__room-meta {
+  font-size: 0.8125rem;
+  color: #9CA3AF;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dashboard__room-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #F3F4F6;
+}
+
+/* Score badge in joined rooms */
+.dashboard__score {
+  text-align: right;
+}
+
+.dashboard__score-label {
+  font-size: 0.75rem;
+  color: #9CA3AF;
+  margin-bottom: 2px;
+}
+
+.dashboard__score-value {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: #4F46E5;
+  letter-spacing: -0.03em;
+}
+
+/* ── Empty state ── */
+.dashboard__empty {
+  background: #FAFAFA;
+  border: 1.5px dashed #D1D5DB;
+  border-radius: 12px;
+  padding: 28px 20px;
+  text-align: center;
+}
+
+.dashboard__empty-text {
+  font-size: 0.9375rem;
+  color: #9CA3AF;
+  margin-bottom: 12px;
+}
+
+.dashboard__empty-link {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #4F46E5;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: gap 150ms ease;
+}
+
+.dashboard__empty-link:hover {
+  gap: 7px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .dashboard__rooms-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard__stats {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard__main {
+    padding: 36px 16px 64px;
+  }
+
+  .dashboard__greeting {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,117 @@
+/* ─────────────────────────────────────────
+   FOOTER ACTIONS (Back / Next / Launch)
+───────────────────────────────────────── */
+
+.footer-actions {
+  /* wrapper — no extra styles needed, children use flex */
+}
+
+.footer-actions__error {
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  background: #FEF2F2;
+  border: 1.5px solid #FECACA;
+  border-radius: 10px;
+  color: #DC2626;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.footer-actions__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #E8E8E8;
+  padding-top: 24px;
+  gap: 12px;
+}
+
+.footer-actions__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 20px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #6B7280;
+  background: transparent;
+  border: 1.5px solid #E8E8E8;
+  border-radius: 8px;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+  transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
+}
+
+.footer-actions__back:hover:not(:disabled) {
+  border-color: #4F46E5;
+  color: #4F46E5;
+  background: #F5F5FF;
+}
+
+.footer-actions__back:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.footer-actions__next {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 28px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  background: #4F46E5;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+  transition: background 160ms ease, transform 120ms ease;
+}
+
+.footer-actions__next:hover:not(:disabled) {
+  background: #4338CA;
+  transform: translateY(-1px);
+}
+
+.footer-actions__next:active {
+  transform: translateY(0);
+}
+
+.footer-actions__next:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.footer-actions__launch {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 28px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  background: #4F46E5;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+  transition: background 160ms ease, transform 120ms ease;
+}
+
+.footer-actions__launch:hover:not(:disabled) {
+  background: #4338CA;
+  transform: translateY(-1px);
+}
+
+.footer-actions__launch:active {
+  transform: translateY(0);
+}
+
+.footer-actions__launch:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}

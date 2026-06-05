@@ -1,0 +1,53 @@
+/* ─────────────────────────────────────────
+   CREATE QUIZ — PAGE SHELL
+───────────────────────────────────────── */
+
+.create-quiz {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #FAFAFA;
+}
+
+.create-quiz__main {
+  flex: 1;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 56px 24px 80px;
+}
+
+.create-quiz__header {
+  margin-bottom: 36px;
+}
+
+.create-quiz__title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0F0F0F;
+  letter-spacing: -0.04em;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.create-quiz__subtitle {
+  font-size: 0.9375rem;
+  color: #6B7280;
+}
+
+.create-quiz__card {
+  background: #FFFFFF;
+  border: 1.5px solid #E8E8E8;
+  border-radius: 16px;
+  padding: 40px;
+}
+
+@media (max-width: 640px) {
+  .create-quiz__main {
+    padding: 40px 16px 64px;
+  }
+
+  .create-quiz__card {
+    padding: 28px 20px;
+  }
+}

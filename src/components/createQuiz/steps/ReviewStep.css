@@ -1,0 +1,83 @@
+/* ─────────────────────────────────────────
+   REVIEW / LAUNCH STEP
+───────────────────────────────────────── */
+
+.review-step {
+  text-align: center;
+  padding: 24px 0 8px;
+}
+
+.review-step__icon {
+  width: 72px;
+  height: 72px;
+  background: #EEF2FF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.review-step__heading {
+  font-size: 1.625rem;
+  font-weight: 800;
+  color: #0F0F0F;
+  letter-spacing: -0.04em;
+  margin-bottom: 8px;
+}
+
+.review-step__sub {
+  font-size: 0.9375rem;
+  color: #6B7280;
+  margin-bottom: 36px;
+}
+
+/* ── Summary card ── */
+.review-step__summary {
+  background: #FAFAFA;
+  border: 1.5px solid #E8E8E8;
+  border-radius: 14px;
+  padding: 28px;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.review-step__quiz-title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: #0F0F0F;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.review-step__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.review-step__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 0;
+  border-bottom: 1px solid #F3F4F6;
+  font-size: 0.9rem;
+}
+
+.review-step__row:last-child {
+  border-bottom: none;
+}
+
+.review-step__row-key {
+  color: #6B7280;
+  font-weight: 400;
+}
+
+.review-step__row-val {
+  font-weight: 600;
+  color: #0F0F0F;
+}

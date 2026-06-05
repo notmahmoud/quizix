@@ -1,0 +1,382 @@
+/* ─────────────────────────────────────────
+   HOST LOBBY PAGE + COMPONENTS
+───────────────────────────────────────── */
+
+.host-lobby {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #FAFAFA;
+}
+
+.host-lobby__main {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+/* ── Header ── */
+.lobby-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.lobby-header__text h1 {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #0F0F0F;
+  letter-spacing: -0.04em;
+  margin-bottom: 6px;
+}
+
+.lobby-header__text p {
+  font-size: 0.9375rem;
+  color: #6B7280;
+}
+
+/* ── Code pill ── */
+.lobby-header__code-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.lobby-header__code-box {
+  display: flex;
+  align-items: stretch;
+  background: #FFFFFF;
+  border: 1.5px solid #E8E8E8;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.lobby-header__code-inner {
+  padding: 14px 24px;
+  border-right: 1px solid #E8E8E8;
+}
+
+.lobby-header__code-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #9CA3AF;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.lobby-header__code-value {
+  font-size: 1.875rem;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-weight: 700;
+  color: #4F46E5;
+  letter-spacing: 0.12em;
+}
+
+.lobby-header__copy-btn {
+  padding: 0 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: #9CA3AF;
+  transition: color 150ms ease, background 150ms ease;
+  font-family: inherit;
+}
+
+.lobby-header__copy-btn:hover {
+  color: #4F46E5;
+  background: #F5F5FF;
+}
+
+.lobby-header__copy-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ── Action bar ── */
+.lobby-action-bar {
+  background: #FFFFFF;
+  border: 1.5px solid #E8E8E8;
+  border-radius: 14px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.lobby-action-bar__count {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lobby-action-bar__count-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #F3F4F6;
+  border: 1.5px solid #E8E8E8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lobby-action-bar__count-num {
+  font-size: 1.375rem;
+  font-weight: 800;
+  color: #0F0F0F;
+  letter-spacing: -0.04em;
+}
+
+.lobby-action-bar__count-text {
+  font-size: 0.9rem;
+  color: #6B7280;
+}
+
+.lobby-action-bar__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* End session button */
+.lobby-action-bar__end-btn {
+  padding: 10px 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: #DC2626;
+  background: transparent;
+  border: 1.5px solid #FECACA;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease;
+  letter-spacing: -0.01em;
+}
+
+.lobby-action-bar__end-btn:hover {
+  background: #FEF2F2;
+  border-color: #DC2626;
+}
+
+/* Live badge */
+.lobby-action-bar__live-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  background: #EEF2FF;
+  border: 1.5px solid #C7D2FE;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #4F46E5;
+}
+
+.lobby-action-bar__live-dot {
+  position: relative;
+  width: 10px;
+  height: 10px;
+}
+
+.lobby-action-bar__live-dot-ping {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #4F46E5;
+  opacity: 0.4;
+  animation: ping 1.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.lobby-action-bar__live-dot-core {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #4F46E5;
+}
+
+@keyframes ping {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+
+/* ── Student grid ── */
+.student-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.student-card {
+  background: #FFFFFF;
+  border: 1.5px solid #E8E8E8;
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  transition: border-color 180ms ease;
+}
+
+.student-card:hover {
+  border-color: #C7D2FE;
+}
+
+/* Score overlay on hover */
+.student-card__score-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.96);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 200ms ease;
+  z-index: 10;
+}
+
+.student-card:hover .student-card__score-overlay {
+  opacity: 1;
+}
+
+.student-card__score-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #9CA3AF;
+  display: block;
+  margin-bottom: 4px;
+  text-align: center;
+}
+
+.student-card__score-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #4F46E5;
+  letter-spacing: -0.04em;
+  text-align: center;
+}
+
+/* Avatar + name */
+.student-card__top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.student-card__avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #EEF2FF;
+  border: 1.5px solid #C7D2FE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #4F46E5;
+  flex-shrink: 0;
+}
+
+.student-card__name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #0F0F0F;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: -0.02em;
+}
+
+/* Status bottom row */
+.student-card__footer {
+  border-top: 1px solid #F3F4F6;
+  padding-top: 12px;
+}
+
+/* student-badge classes are defined globally in index.css */
+
+/* Empty state */
+.student-grid__empty {
+  grid-column: 1 / -1;
+  padding: 80px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.student-grid__empty-icon {
+  width: 72px;
+  height: 72px;
+  background: #FFFFFF;
+  border: 1.5px solid #E8E8E8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.student-grid__empty-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #0F0F0F;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.student-grid__empty-sub {
+  font-size: 0.9rem;
+  color: #9CA3AF;
+  line-height: 1.6;
+  max-width: 380px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .student-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .student-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .lobby-header {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .student-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .host-lobby__main {
+    padding: 36px 16px 64px;
+  }
+}

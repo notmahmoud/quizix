@@ -1,0 +1,136 @@
+/* ─────────────────────────────────────────
+   SETTINGS STEP
+───────────────────────────────────────── */
+
+.settings-step {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.settings-step__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.settings-step__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0F0F0F;
+  letter-spacing: -0.01em;
+}
+
+/* ── Divider before toggles ── */
+.settings-step__divider {
+  height: 1px;
+  background: #E8E8E8;
+  margin: 4px 0;
+}
+
+/* ── Toggle rows ── */
+.settings-step__toggles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.settings-step__toggle-full {
+  grid-column: 1 / -1;
+}
+
+.settings-step__toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  background: #FAFAFA;
+  border: 1.5px solid #E8E8E8;
+  border-radius: 12px;
+  transition: border-color 160ms ease;
+}
+
+.settings-step__toggle-row:hover {
+  border-color: #C7D2FE;
+}
+
+.settings-step__toggle-label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #0F0F0F;
+  letter-spacing: -0.01em;
+  margin-bottom: 3px;
+}
+
+.settings-step__toggle-desc {
+  font-size: 0.8125rem;
+  color: #9CA3AF;
+}
+
+/* ── Duration input row ── */
+.settings-step__duration-input {
+  width: 80px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.125rem;
+  padding: 8px 10px;
+  flex-shrink: 0;
+}
+
+/* ── Toggle switch (CSS-only) ── */
+.settings-step__switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.settings-step__switch input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.settings-step__switch-track {
+  width: 44px;
+  height: 24px;
+  background: #D1D5DB;
+  border-radius: 100px;
+  position: relative;
+  transition: background 200ms ease;
+}
+
+.settings-step__switch input:checked + .settings-step__switch-track {
+  background: #4F46E5;
+}
+
+.settings-step__switch-track::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  transition: transform 200ms ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.settings-step__switch input:checked + .settings-step__switch-track::after {
+  transform: translateX(20px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .settings-step__toggles {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-step__toggle-full {
+    grid-column: 1;
+  }
+}

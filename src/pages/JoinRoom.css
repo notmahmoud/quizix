@@ -1,0 +1,147 @@
+/* ─────────────────────────────────────────
+   JOIN ROOM PAGE
+───────────────────────────────────────── */
+
+.join-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #FAFAFA;
+}
+
+.join-page__main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+}
+
+.join-card {
+  background: #FFFFFF;
+  border: 1.5px solid #E8E8E8;
+  border-radius: 18px;
+  padding: 44px 40px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* ── Icon ── */
+.join-card__icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  background: #EEF2FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.join-card__title {
+  font-size: 1.625rem;
+  font-weight: 800;
+  color: #0F0F0F;
+  letter-spacing: -0.04em;
+  margin-bottom: 8px;
+}
+
+.join-card__sub {
+  font-size: 0.9375rem;
+  color: #6B7280;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+/* ── Field ── */
+.join-card__label {
+  display: block;
+  text-align: left;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0F0F0F;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.join-card__input {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 1.625rem;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-align: center;
+  color: #0F0F0F;
+  background: #FFFFFF;
+  border: 1.5px solid #E8E8E8;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+  text-transform: uppercase;
+}
+
+.join-card__input::placeholder {
+  color: #D1D5DB;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+.join-card__input:focus {
+  border-color: #4F46E5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+.join-card__input--error {
+  border-color: #DC2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.join-card__error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 0.875rem;
+  color: #DC2626;
+}
+
+.join-card__submit {
+  width: 100%;
+  height: 48px;
+  padding: 0 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: inherit;
+  color: #FFFFFF;
+  background: #4F46E5;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  letter-spacing: -0.01em;
+  transition: background 160ms ease, transform 120ms ease;
+  margin-top: 20px;
+}
+
+.join-card__submit:hover:not(:disabled) {
+  background: #4338CA;
+  transform: translateY(-1px);
+}
+
+.join-card__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (max-width: 480px) {
+  .join-card {
+    padding: 32px 24px;
+  }
+}
